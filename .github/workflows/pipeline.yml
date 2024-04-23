@@ -34,7 +34,7 @@ jobs:
       - name: Ensure cypress binary to be installed
         run: CYPRESS_CACHE_FOLDER=~/cypress_cache npx cypress install
       - name: Check style
-        run: pnpm run eslint
+        run: pnpm run lint
       - name: Build
         run: pnpm run build
       - name: e2e tests
