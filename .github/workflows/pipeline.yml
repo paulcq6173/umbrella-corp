@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies with pnpm
         run: CYPRESS_CACHE_FOLDER=~/cypress_cache pnpm install
-      - name: Install cypress binary
+      - name: Ensure cypress binary to be installed
         run: CYPRESS_CACHE_FOLDER=~/cypress_cache npx cypress install
       - name: Check style
         run: pnpm run eslint
@@ -52,7 +52,7 @@ jobs:
         if: ${{ success() && github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
         with:
           severity: info
-          text: A new version of pokedev deployed
+          text: Umbrella web app deployed
           details: to https://full-stack-open-pokedex-3xit.onrender.com by pualcq6173
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Notify Failure
