@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies with pnpm
         run: pnpm install
       - name: Ensure cypress binary to be installed
-        run: cypress install
+        run: npx cypress install
       - name: Check style
         run: pnpm run lint
       - name: Build
