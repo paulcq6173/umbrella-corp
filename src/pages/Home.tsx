@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
     <div className="w-screen flex flex-col justify-center bg-gray-200 dark:text-white dark:bg-gray-800">
-      <h2>Welcome to Umbrella</h2>
+      <h2 className="italic text-red-600 text-center">Welcome to Umbrella</h2>
       <p className="text-sm font-medium sm:text-base">
         Research is life itself
       </p>

@@ -23,7 +23,6 @@ const AboutPage = () => {
         <h2 className="font-medium text-base sm:text-md">Founders</h2>
         {Founders.map((founder) => (
           <div>
-            <h3>{founder.founderName}</h3>
             <div className="grid grid-cols-2">
               <div className="col-span-1">
                 <img
@@ -32,6 +31,7 @@ const AboutPage = () => {
                 />
               </div>
               <div className="overflow-auto">
+                <h3>{founder.founderName}</h3>
                 <h4 className="text-sm sm:text-base text-yellow-500">
                   {founder.occupation.map((e) => (
                     <li>{e}</li>

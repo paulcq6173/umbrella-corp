@@ -11,10 +11,23 @@ export default defineConfig({
         replacement: resolve(__dirname, './src'),
       },
       {
+        find: '@server',
+        replacement: resolve(__dirname, './server'),
+      },
+      {
         find: '@public',
         replacement: resolve(__dirname, './public'),
       },
     ],
+  },
+  server: {
+    /*proxy: {
+      '/api': {
+        target: 'remote-api-url',
+        changeOrigin: true,
+      },
+    },*/
+    cors: false,
   },
   plugins: [react()],
 });

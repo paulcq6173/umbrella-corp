@@ -5,7 +5,7 @@ const Footer = () => {
         <h3 className="text-center font-medium text-green-600 bg-white dark:text-lime-200 dark:bg-black">
           Our Missions
         </h3>
-        <ul className="list-disc list-inside text-sm sm:text-base">
+        <ul className="list-disc list-inside text-sm sm:text-base dark:text-stone-200">
           <li>Protecting the Health of the People</li>
           <li>Our Business is Life Itself</li>
           <li>
