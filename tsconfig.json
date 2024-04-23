@@ -16,7 +16,7 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": ["node"],
+    "types": ["cypress", "node"],
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
@@ -27,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "server"],
+  "include": ["src", "server","cypress"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -47,7 +47,6 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "cypress": "^13.8.0",
-    "cypress_cache": "link:CYPRESS_CACHE_FOLDER=/home/nanaz/cypress_cache",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",

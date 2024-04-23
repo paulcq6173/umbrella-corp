@@ -102,9 +102,6 @@ importers:
       cypress:
         specifier: ^13.8.0
         version: 13.8.0
-      cypress_cache:
-        specifier: link:CYPRESS_CACHE_FOLDER=/home/nanaz/cypress_cache
-        version: link:CYPRESS_CACHE_FOLDER=/home/nanaz/cypress_cache
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
