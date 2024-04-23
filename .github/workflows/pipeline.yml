@@ -46,7 +46,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: pnpm run start-prod
-          spec: cypress/e2e/umb.spec.cy.js
+          spec: cypress/e2e/umb.spec.cy.ts
           wait-on: http://127.0.0.1:5000
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
