@@ -8,9 +8,9 @@ import express, { Express, Request, Response } from 'express';
 import http from 'http';
 import jwt from 'jsonwebtoken';
 import createApolloServer from './apolloServer';
-//import connectToDB from './mongo';
+import connectToDB from './mongo';
 
-//connectToDB();
+connectToDB();
 
 const app: Express = express();
 

@@ -37,11 +37,9 @@ jobs:
         run: pnpm run lint
       - name: Build
         run: pnpm run build
-      - name: Create env file before use it
-        run: |
-          touch .env
-          echo VITE_MONGODB_URL=${{ secrets.VITE_MONGODB_URL }} >> .env
-          cat .env
+      - name: set necessary env
+        env:
+        VITE_MONGODB_URL: ${{ secrets.VITE_MONGODB_URL }}
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
