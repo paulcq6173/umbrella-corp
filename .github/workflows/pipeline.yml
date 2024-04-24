@@ -31,17 +31,16 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies with pnpm
         run: pnpm install
-      - name: Ensure cypress binary to be installed
-        run: npx cypress install
+      #- name: Ensure cypress binary to be installed
+      #  run: npx cypress install
       - name: Check style
         run: pnpm run lint
       - name: Build
         run: pnpm run build
-      - name: set necessary env
-        env:
-        VITE_MONGODB_URL: ${{ secrets.VITE_MONGODB_URL }}
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        env:
+          VITE_MONGODB_URL: ${{ secrets.VITE_MONGODB_URL }}
         with:
           start: pnpm run start-prod
           spec: cypress/e2e/umb.spec.cy.ts
