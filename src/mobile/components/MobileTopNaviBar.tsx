@@ -1,17 +1,20 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import MobileCollapsedSideBar from '../collapsed/MobileCollapsedSideBar';
 
 const MobileTopNaviBar = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="w-screen flex flex-col bg-white text-center dark:bg-black dark:text-white">
       <div className="flex gap-1 justify-center items-center text-sm font-medium text-white dark:text-white">
         <Link className="w-16 block bg-black" to="/">
           <img src="https://static.wikia.nocookie.net/residentevil/images/7/72/Umbrella-logo-bd.jpg" />
         </Link>
-        <Link to="/signin">Sign in</Link>
-        <Link to="/signup">Sign up</Link>
+        <Link to="/signin">{t('SignIn')}</Link>
+        <Link to="/signup">{t('SignUp')}</Link>
         <MobileCollapsedSideBar />
       </div>
       <div className="w-full h-8 bg-amber-400 flex justify-center items-center">

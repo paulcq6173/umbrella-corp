@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer';
-import TopNaviBar from '@/mobile/components/MobileTopNaviBar';
+import TopNaviBar from '@/components/TopNaviBar';
 import AboutPage from '@/pages/About';
 import HomePage from '@/pages/Home';
 import ProductPage from '@/pages/ProductPage';
@@ -8,6 +8,7 @@ import SignUp from '@/pages/SignUp';
 import { Route, Routes } from 'react-router-dom';
 import './main.css';
 import NotFoundPage from './pages/NotFound';
+import RecruitmentPage from './pages/Recruitment';
 import SearchResultPage from './pages/SearchResult';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/products/search" element={<SearchResultPage />} />
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/recruitment" element={<RecruitmentPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

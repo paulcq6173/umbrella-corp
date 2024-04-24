@@ -29,7 +29,7 @@ const Collapsible = (props: { children: ReactNode }) => {
   };
 
   return (
-    <div>
+    <div className="z-10">
       <button
         className="w-8 border-2 border-transparent rounded-sm text-white cursor-pointer hover:bg-red-500 focus:border-red-600"
         onClick={handleToggle}
