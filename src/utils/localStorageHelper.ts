@@ -1,4 +1,3 @@
-import { ICartState } from '@/reducers/cartSlice';
 import { TUser } from '@/reducers/loginSlice';
 
 const loadStorage = (key: string) => {
@@ -6,8 +5,8 @@ const loadStorage = (key: string) => {
 
   try {
     switch (key) {
-      case 'cartItems':
-        foundItem = window.localStorage.getItem('cartItems');
+      case 'loggedUser':
+        foundItem = window.localStorage.getItem('loggedUser');
         if (!foundItem) {
           return undefined;
         }
@@ -32,20 +31,4 @@ const saveUser = (user: TUser) => {
   }
 };
 
-const isCart = (state: unknown): state is ICartState[] =>
-  (state as ICartState[]) !== undefined;
-
-const saveStorage = (state: unknown) => {
-  try {
-    if (isCart(state)) {
-      window.localStorage.setItem('cartItems', JSON.stringify(state));
-    }
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    console.error('Unexpected error get caught.', error);
-  }
-};
-
-export default { loadStorage, saveUser, saveStorage };
+export default { loadStorage, saveUser };
