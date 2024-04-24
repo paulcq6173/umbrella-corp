@@ -31,8 +31,6 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies with pnpm
         run: pnpm install
-      #- name: Ensure cypress binary to be installed
-      #  run: npx cypress install
       - name: Check style
         run: pnpm run lint
       - name: Build
