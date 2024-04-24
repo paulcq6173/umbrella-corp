@@ -2,9 +2,23 @@ const HomePage = () => {
   return (
     <div className="w-screen flex flex-col justify-center bg-gray-200 dark:text-white dark:bg-gray-800">
       <h2 className="italic text-red-600 text-center">Welcome to Umbrella</h2>
-      <p className="text-sm font-medium sm:text-base">
-        Research is life itself
-      </p>
+      <div className="md:grid md:grid-cols-3">
+        <div className="md:col-span-1 md:p-1">
+          <img
+            className="border-2 border-transparent rounded-sm"
+            src="/images/umb_lobby.jpg"
+          />
+        </div>
+        <div className="md:col-span-1 md:p-1">
+          <img
+            className="border-2 border-transparent rounded-sm hidden md:block"
+            src="/images/umb_intro_larger.jpg"
+          />
+        </div>
+        <div className="text-sm font-medium sm:text-base">
+          <p className="italic text-yellow-600">Research is life itself</p>
+        </div>
+      </div>
       <hr className="w-4/5 m-auto" />
       <div className="text-sm sm:text-base">
         <h3 className="font-medium text-red-800 sm:text-md text-center">

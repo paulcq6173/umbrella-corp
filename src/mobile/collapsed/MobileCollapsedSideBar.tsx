@@ -22,14 +22,19 @@ const MobileCollapsedSideBar = () => {
           />
         </Link>
       </div>
-      <p className="w-full bg-red-700 text-white text-center">Setting</p>
+      <p className="w-full bg-red-800 text-white text-center">
+        {t('Categories')}
+      </p>
       <Link
         className="block text-center text-black text-sm bg-red-600 no-underline text-base hover:bg-red-400"
         to="/products/search"
       >
         {t('PopularItem')}
       </Link>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="Books">
+      <button
+        className="w-full bg-red-600 hover:bg-red-400"
+        value="PersonalCare"
+      >
         <Link
           className="text-black text-sm no-underline text-base"
           to="/products/search"
@@ -37,7 +42,7 @@ const MobileCollapsedSideBar = () => {
           {t('PersonalCare')}
         </Link>
       </button>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="Videos">
+      <button className="w-full bg-red-600 hover:bg-red-400" value="HealthCare">
         <Link
           className="text-black text-sm no-underline text-base"
           to="/products/search"
@@ -45,7 +50,7 @@ const MobileCollapsedSideBar = () => {
           {t('HealthCare')}
         </Link>
       </button>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="Games">
+      <button className="w-full bg-red-600 hover:bg-red-400" value="Medical">
         <Link
           className="text-black text-sm no-underline text-base"
           to="/products/search"
@@ -53,7 +58,16 @@ const MobileCollapsedSideBar = () => {
           {t('Medical')}
         </Link>
       </button>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="Games">
+      <p className="w-full bg-red-800 text-white text-center">{t('Links')}</p>
+      <button className="w-full bg-red-600 hover:bg-red-400">
+        <Link
+          className="text-black text-sm no-underline text-base"
+          to="/recruitment"
+        >
+          {t('Recruitment')}
+        </Link>
+      </button>
+      <button className="w-full bg-red-600 hover:bg-red-400">
         <Link className="text-black text-sm no-underline text-base" to="/about">
           {t('About')}
         </Link>

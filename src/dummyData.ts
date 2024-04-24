@@ -7,18 +7,19 @@ export const Founders: IFounder[] = [
     portrait:
       'https://static.wikia.nocookie.net/residentevil/images/c/c9/RE_Resistance_Spencer.jpg',
     occupation: ['President and CEO of Umbrella'],
-    intro: 'One of the founders of Umbrella Pharmaceuticals.',
+    intro:
+      'Dr. Oswell E. Spencer, Earl Spencer was an aristocratic British billionaire, virologist and eugenicist.',
   },
   {
     id: 2,
     founderName: 'James Marcus',
-    portrait:
-      'https://static.wikia.nocookie.net/residentevil/images/1/17/JamesMarcusConcept_t.png',
+    portrait: '/images/JamesMarcusPortrait.jpg',
     occupation: [
       "Head of Umbrella's Executive Training School (1968-1988)",
       'Umbrella Scientist (1968-1988)',
     ],
-    intro: 'One of the founders of Umbrella Pharmaceuticals.',
+    intro:
+      "Dr. James Marcus was a virologist who led viral weapons research in the 20th century, serving as one of the co-founders of Umbrella Pharmaceuticals and holding the Director position at the company's executive training school.",
   },
   {
     id: 3,
@@ -26,7 +27,8 @@ export const Founders: IFounder[] = [
     portrait:
       'https://static.wikia.nocookie.net/residentevil/images/f/f4/Edward_Ashford.png',
     occupation: ['Virologist', 'Company executive'],
-    intro: 'One of the founders of Umbrella Pharmaceuticals.',
+    intro:
+      'Dr. Edward Ashford, 5th Earl Ashford was a British virologist and co-founder of Umbrella Pharmaceuticals.',
   },
 ];
 
