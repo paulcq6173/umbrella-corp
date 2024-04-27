@@ -23,6 +23,7 @@ const apolloErrorFormatter = (error: unknown) => {
   if (error instanceof GraphQLError) {
     normalizedError = error;
   } else {
+    console.error(error);
     normalizedError = new GraphQLError('Unexpected Error occured', {
       extensions: { code: 'INTERNAL_SERVER_ERROR' },
     });
