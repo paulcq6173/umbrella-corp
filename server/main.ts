@@ -83,6 +83,6 @@ await new Promise<void>((resolve) =>
   httpServer.listen({ port: API_PORT }, resolve)
 );
 
-logger.info(`Server ready at http://localhost:${API_PORT}`);
+logger.info(`Server running on ${API_PORT}`);
 
 export default app;
