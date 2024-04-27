@@ -2,7 +2,7 @@ import NotByAI from './NotByAI';
 
 const Footer = () => {
   return (
-    <div className="w-screen sm:h-4/6 bg-gray-600 dark:bg-slate-900">
+    <div className="w-screen h-1/3 sm:h-4/6 bg-gray-600 dark:bg-slate-900">
       <label className="pt-4 flex justify-center">
         <NotByAI />
       </label>
@@ -14,7 +14,7 @@ const Footer = () => {
         </div>
         <div className="w-full flex justify-center gap-2 bg-slate-800">
           <div>
-            <h3 className="font-medium dark:text-white">Subsidiaries</h3>
+            <h3 className="italic font-medium text-red-600">Subsidiaries</h3>
             <ul className="style-inside">
               <li className="text-zinc-300">Umbrella U.S.A.</li>
               <li className="text-zinc-300">Umbrella Europe</li>
@@ -22,7 +22,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-medium dark:text-white">
+            <h3 className="italic font-medium text-red-600">
               Collaboration Partnership
             </h3>
             <ul className="style-inside">

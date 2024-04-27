@@ -1,4 +1,4 @@
-import { IFounder, IProduct } from './@types/types';
+import { IFounder, IProduct, IProject } from './@types/types';
 
 export const Founders: IFounder[] = [
   {
@@ -84,5 +84,175 @@ export const Products: IProduct[] = [
     genre: 'Health Foods',
     listPrice: 5,
     ratings: 4.7,
+  },
+];
+
+export const Projects: IProject[] = [
+  {
+    id: '7f1a21c6c8d5065f',
+    projectName: 'Cerberus-Project',
+    description:
+      'An early attempt at creating a controllable Bio Organic Weapon by Umbrella USA, in a project led by the Arklay Laboratory. Pronounced as the Greek word, "Kerberos", this creature was named after the mythological guardian of Hades, a gigantic dog with three heads and a collar made of venomous snakes.',
+    Models: [
+      {
+        id: 'aeabbc9d0c269b7a058cba822e559865',
+        codeName: 'MA-39',
+        version: '1.0.3',
+        characteristics:
+          'The Cerberus Project began in the early 1980s as the β strain was developed. It was hoped that the improved t-Virus strain would create mutants more adequate for sale as military products, and dobermans were specifically selected for the project due to their traits favouring military service. Though they suffered skin deterioration, their muscles were left largely intact, and this and their increased strength and aggression made them more dangerous. As this B.O.W. species was created from an existing animal, unlike the Hunter Program, the cost to create the Cerberus prototypes was low. Deemed a success, the later Cerberuses were created by cloning one of the prototypes.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/6/65/Cerberus_-_Resident_Evil.png',
+      },
+    ],
+  },
+  {
+    id: '8c3b48b6ac57289f',
+    projectName: 'Queen Leech',
+    description:
+      "The Queen Leech was a mutant leech created through experimentation on annelids with the t-Virus. Created as part of Dr. James Marcus' ongoing leech study, it was his final creation before his death. In the time after, it consumed his hippocampus and gained his memories.",
+    Models: [
+      {
+        id: '9f23d5d81a3c987cd46a5fff909ddc13',
+        codeName: 'Queen Leech',
+        version: '0.3.1',
+        characteristics:
+          "The Queen Leech was created in 1988 in a laboratory adjacent to Umbrella's executive training school in the Arklay Mountains. When Dr. Marcus was assassinated by the Umbrella Security Service, Queen Leech was dumped in a nearby treatment plant with his corpse. Seeing his body as a food source, Queen Leech began consuming it, and gained his memories after consuming the brain. It believed itself to be Marcus himself, reborn by divine intervention.",
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/5/59/Queenleech2.png',
+      },
+    ],
+  },
+  {
+    id: '860404716c9df7a4',
+    projectName: 'Hunters',
+    description:
+      '"Hunters" are a group of human-animal hybrids which were genetically engineered as biological weapons.',
+    Models: [
+      {
+        id: '16df8123ba021ee510992689fdf371f1',
+        codeName: 'MA-121',
+        version: '1.2.1',
+        characteristics:
+          'The Hunter α was one of the first fully-functional and marketable B.O.W.s produced by Umbrella. It was created by injecting reptilian DNA into a human embryo and administering the t-Virus as a bonding agent. The MA-121α went through intensive research and development at the underground lab in Raccoon City.',
+        experimentalType: false,
+        production: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/2/2a/Hunter.jpg',
+      },
+      {
+        id: '0f83f51211c45c2e491558944b4d1431',
+        codeName: 'MA-121',
+        version: '1.1.0',
+        characteristics:
+          'The Hunter β was a prototype model developed by Umbrella U.S.A. for the Hunter line of Bio-Organic Weapons, designed as a derivative of the earlier α model.',
+        experimentalType: true,
+        production: false,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/0/06/MA-121_Hunter_Beta.jpg',
+      },
+      {
+        id: '560a60c6f3851287f9a9e1c4fc694107',
+        codeName: 'MA-124',
+        version: '1.3.7',
+        characteristics:
+          'The Hunter γ model of Hunter was developed by Umbrella Europe as part of a reinvestigation into amphibian-based B.O.W.s, which failed ten years earlier with Dr. Marcus\' Lurker. It was nicknamed the "Frogger" by its development team.',
+        experimentalType: true,
+        production: false,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/f/fa/RE3_Nemesis_Hunter_Y.jpeg',
+      },
+    ],
+  },
+  {
+    id: '596b9a3ab583856e',
+    projectName: 'Tyrant-Project',
+    description:
+      'The Tyrant is a human bio-weapon created through either a primary t-Virus infection to create a weapon, or the cloning of such specimens, with the intent to be used as super soldiers on the battlefield.',
+    Models: [
+      {
+        id: '628ffbabf855bee054939b3df1483e0d',
+        codeName: 'T-001',
+        version: '1.0.1',
+        characteristics:
+          'First functional model of Tyrant. Mutations caused an exposed heart and spine, ill-functioning nervous system causing muscle spasms.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/7/73/ProtoTyrant.png',
+      },
+      {
+        id: '1c04671e8a5be344c47210b6d9e47b2c',
+        codeName: 'T-002',
+        version: '1.0.2',
+        characteristics:
+          'Improved model over the T-001. Mutations only caused an exposed heart.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/8/82/Resident_Evil_1_HD_Tyrant.png',
+      },
+      {
+        id: '04a11fbf1521cf36395f300ecc76bb70',
+        codeName: 'T-A.L.O.S.',
+        version: '1.11.0',
+        characteristics:
+          'Heavily armoured T-011 Tyrant outfitted with cybernetic implants and a multiple-rocket launcher.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/c/cb/TALOS1.jpg',
+      },
+      {
+        id: '6ea98750abddcd022adb7d3cec871761',
+        codeName: 'Bandersnatch',
+        version: '1.11.0',
+        characteristics:
+          'Off-shoot project created following completion of T-001 prioritising cost-effectiveness. Possibly developed on Rockfort Island. A variant was created by the Organisation, resulting in Jabberwock S3, enhanced with t-Veronica Virus.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/8/80/Bandersnatcher.png',
+      },
+      {
+        id: '6a7a0b44c2833d91bfd3a2b14348945a',
+        codeName: 'T-103',
+        version: '1.3.0',
+        characteristics:
+          'First mass-produced Tyrant, of which there were dozens of clones. They were capable of following complex orders, and saw action in Raccoon City with such missions as retrieving a Golgotha Virus sample, and fighting Delta Force intruders.',
+        experimentalType: false,
+        production: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/1/1e/Re2_tyrant.jpg',
+      },
+      {
+        id: '936055108ff4af04692bb1213925f645',
+        codeName: 'T-078',
+        version: '1.3.7',
+        characteristics:
+          'Experimental T-103 used to test the functionality of the model without a limiter coat. Modified with blunted claws and missing an arm. Released on Rockfort Island.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/2/2f/RECV_Tyrant_artwork.png',
+      },
+      {
+        id: '9eb6546a4e56c4fe47b2904c6d6a0502',
+        codeName: 'Nemesis-T Type',
+        version: '1.8.9',
+        characteristics:
+          'Experimental T-103 variant created by implanting an NE-α Type parasite into several T-103 host bodies. One was deployed to Raccoon City with orders to search and kill any surviving S.T.A.R.S. members to prove its hunting capabilities.',
+        experimentalType: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/b/b2/Nemesis-T_Type.png',
+      },
+      {
+        id: 'eb6b152e50fc2f34c9b64903595b01b3',
+        codeName: 'Ivan',
+        version: '2.0.0',
+        characteristics:
+          'Highly intelligent and human-appearing T-103 variant able to integrate better into human society. At least two were created.',
+        experimentalType: false,
+        production: true,
+        imgUrl:
+          'https://static.wikia.nocookie.net/residentevil/images/9/9c/Ivan.JPG',
+      },
+    ],
   },
 ];

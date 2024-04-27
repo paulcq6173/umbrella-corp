@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import './main.css';
 import Materials from './pages/Materials';
 import NotFoundPage from './pages/NotFound';
+import ProjectPage from './pages/Project';
 import RecruitmentPage from './pages/Recruitment';
 import SearchResultPage from './pages/SearchResult';
 import SecurityPage from './pages/Security';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/materials" element={<Materials />} />
         <Route path="/recruitment" element={<RecruitmentPage />} />
         <Route path="/security" element={<SecurityPage />} />
+        <Route path="/security/project/:id" element={<ProjectPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
