@@ -53,6 +53,7 @@ app.use(
       'https://umbrella-corp-d4q4.onrender.com',
       'https://studio.apollographql.com',
     ],
+    credentials: true,
   }),
   expressMiddleware(apolloServer, {
     context: async ({ req }: { req: Request }) => ({

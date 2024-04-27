@@ -1206,11 +1206,6 @@ video {
   background-color: rgb(71 85 105 / var(--tw-bg-opacity));
 }
 
-.dark\:bg-slate-800:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
 .dark\:bg-slate-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
@@ -1289,7 +1284,7 @@ video {
   .sm\:w-24 {
     width: 6rem;
   }
-  
+
   .sm\:w-4\/5 {
     width: 80%;
   }
