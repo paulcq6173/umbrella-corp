@@ -7,13 +7,15 @@ import SignIn from '@/pages/SighIn';
 import SignUp from '@/pages/SignUp';
 import { Route, Routes } from 'react-router-dom';
 import './main.css';
+import Materials from './pages/Materials';
 import NotFoundPage from './pages/NotFound';
 import RecruitmentPage from './pages/Recruitment';
 import SearchResultPage from './pages/SearchResult';
+import SecurityPage from './pages/Security';
 
 function App() {
   return (
-    <div className="w-screen h-fit">
+    <div className="w-screen h-screen">
       <TopNaviBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -22,7 +24,9 @@ function App() {
         <Route path="/products/search" element={<SearchResultPage />} />
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/materials" element={<Materials />} />
         <Route path="/recruitment" element={<RecruitmentPage />} />
+        <Route path="/security" element={<SecurityPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

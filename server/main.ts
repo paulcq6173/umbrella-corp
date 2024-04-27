@@ -7,6 +7,7 @@ import 'dotenv/config'; // For using dotenv variables
 import express, { Express, Request, Response } from 'express';
 import http from 'http';
 import jwt from 'jsonwebtoken';
+import path from 'node:path';
 import createApolloServer from './apolloServer';
 import connectToDB from './mongo';
 
@@ -69,8 +70,18 @@ app.get('/health', (_req: Request, res: Response) => {
   res.status(200).send('Okay!');
 });
 
+// Solves issue that after refresh page not found
+app.get('/*', (_req, res) => {
+  res.sendFile(
+    path.join(__dirname, '../dist/index.html'),
+    (err) => err && res.status(500).send(err)
+  );
+});
+
 // Modified server startup
-await new Promise<void>((resolve) => app.listen({ port: API_PORT }, resolve));
+await new Promise<void>((resolve) =>
+  httpServer.listen({ port: API_PORT }, resolve)
+);
 
 logger.info(`Server ready at http://localhost:${API_PORT}`);
 

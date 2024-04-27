@@ -1,30 +1,36 @@
+import NotByAI from './NotByAI';
+
 const Footer = () => {
   return (
-    <div className="w-screen bg-gray-600 dark:bg-black">
-      <div className="bg-slate-600">
-        <h3 className="text-center font-medium text-green-600 bg-white dark:text-lime-200 dark:bg-black">
-          Our Missions
-        </h3>
-        <ul className="list-disc list-inside text-sm sm:text-base dark:text-stone-200">
-          <li>Protecting the Health of the People</li>
-          <li>Our Business is Life Itself</li>
-          <li>
-            Obedience Breeds Discipline, Discipline Breeds Unity, Unity Breeds
-            Power, Power is Life
-          </li>
-          <li>Science for a comfortable life</li>
-        </ul>
-      </div>
-      <div className="text-sm text-black dark:text-white">
-        <p className="text-center">
+    <div className="w-screen sm:h-4/6 bg-gray-600 dark:bg-slate-900">
+      <label className="pt-4 flex justify-center">
+        <NotByAI />
+      </label>
+
+      <div className="flex flex-col gap-4 text-sm text-black">
+        <div className="text-center dark:text-white">
           © 1980-2024 <strong>Umbrella Corp & Capcom</strong>. All Rights
           Reserved
-        </p>
-        <h3 className="font-medium">Collaboration Partnership</h3>
-        <ul>
-          <li className="text-zinc-300">WP Corporation</li>
-          <li className="text-green-300">TRICELL Inc.</li>
-        </ul>
+        </div>
+        <div className="w-full flex justify-center gap-2 bg-slate-800">
+          <div>
+            <h3 className="font-medium dark:text-white">Subsidiaries</h3>
+            <ul className="style-inside">
+              <li className="text-zinc-300">Umbrella U.S.A.</li>
+              <li className="text-zinc-300">Umbrella Europe</li>
+              <li className="text-zinc-300">Umbrella Japan</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-medium dark:text-white">
+              Collaboration Partnership
+            </h3>
+            <ul className="style-inside">
+              <li className="text-zinc-300">WP Corporation</li>
+              <li className="text-green-300">TRICELL Inc.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

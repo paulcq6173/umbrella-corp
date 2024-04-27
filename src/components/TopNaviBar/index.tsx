@@ -1,15 +1,16 @@
+import ToggleTheme from '@/components/ToggleTheme';
+import TopNaviButton from '@/components/TopNaviBar/TopNaviButton';
+import UmbrellaLabel from '@/components/UmbrellaLabel';
 import MobileTopNaviBar from '@/mobile/components/MobileTopNaviBar';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import UmbrellaLabel from './UmbrellaLabel';
+import Flexible from './Flexible';
 
 const TopNaviBar = () => {
-  const { t } = useTranslation();
-  const isMobile: boolean = window.screen.width < 811;
+  const mobileMode: boolean = window.screen.width < 811;
 
-  if (isMobile) {
+  if (mobileMode) {
     return <MobileTopNaviBar />;
   }
 
@@ -19,24 +20,11 @@ const TopNaviBar = () => {
         <Link className="w-24 block bg-black italic" to="/">
           <UmbrellaLabel title="Umbrella" />
         </Link>
-        <Link
-          className="p-0.5 border-2 border-slate-800 rounded bg-slate-400 dark:bg-red-800 hover:bg-red-600"
-          to="/signin"
-        >
-          {t('SignIn')}
-        </Link>
-        <Link
-          className="p-0.5 border-2 border-slate-800 rounded bg-slate-400 dark:bg-red-800 hover:bg-red-600"
-          to="/signup"
-        >
-          {t('SignUp')}
-        </Link>
-        <Link
-          className="p-0.5 border-2 border-slate-800 rounded bg-slate-400 dark:bg-red-800 hover:bg-red-600"
-          to="recruitment"
-        >
-          {t('Recruitment')}
-        </Link>
+        <TopNaviButton labelValue="HotProducts" path="/products/search" />
+        <Flexible />
+        <TopNaviButton labelValue="Recruitment" path="/recruitment" />
+        <TopNaviButton labelValue="Materials" path="/materials" />
+        <ToggleTheme />
       </div>
       <div className="w-full h-8 bg-amber-400 flex justify-center items-center">
         <span className="flex w-40 sm:w-60 border-2 border-transparent rounded-sm hover:border-orange-400">

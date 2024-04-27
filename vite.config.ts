@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,14 +21,36 @@ export default defineConfig({
       },
     ],
   },
+  build: {
+    chunkSizeWarningLimit: 600,
+    /*rollupOptions: {
+      output: {
+        // Reduce size of asset files
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id
+              .toString()
+              .split('node_modules/')[1]
+              .split('/')[0]
+              .toString();
+          }
+        },
+      },
+    },*/
+  },
   server: {
     /*proxy: {
-      '/api': {
+      '/graphql': {
         target: 'remote-api-url',
         changeOrigin: true,
       },
     },*/
     cors: false,
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    svgr({
+      include: '**/*.svg?react',
+    }),
+  ],
 });

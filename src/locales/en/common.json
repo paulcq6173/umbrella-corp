@@ -3,5 +3,12 @@
   "ProductDetails": "product details",
   "Back":"back",
   "SignUp": "Sign up",
-  "SignIn":"Sign In"
+  "SignIn":"Sign In",
+  "LogOut": "Log out",
+  "Recruitment":"Recruitment",
+  "Materials":"Materials",
+  "HotProducts":"Hot Products",
+  "PersonalCare":"Personal Care",
+  "HealthCare":"Health care",
+  "Links":"Links"
 }

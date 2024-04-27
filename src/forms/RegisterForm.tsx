@@ -1,3 +1,4 @@
+import NotifyHandler from '@/components/NotifyHandler';
 import TopMessageBoard from '@/components/TopMessageBoard';
 import UmbrellaLabel from '@/components/UmbrellaLabel';
 import useField from '@/hooks/useField';
@@ -16,9 +17,9 @@ const RegisterForm = () => {
     <div className="p-1 flex flex-col gap-1.5 z-0">
       <TopMessageBoard />
 
-      <div className="w-11/12 sm:w-4/5 md:w-6/7 lg:w-[800px] h-48 m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
+      <div className="w-11/12 h-48 sm:w-4/5 md:w-6/7 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
         <h2 className="italic text-sm sm:text-base text-red-800 text-center bg-black">
-          Umbrella System Control
+          {t(`System.CTRL`, { ns: 'umbrellaSecurity' })}
         </h2>
         <UmbrellaLabel title="SignUp" />
         <form
@@ -27,7 +28,7 @@ const RegisterForm = () => {
         >
           <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
             <div className="italic sm:col-span-1 md:text-right">
-              <label>User</label>
+              <label>{t('User', { ns: 'umbrellaSecurity' })}</label>
             </div>
             <div className="md:pl-2">
               <input
@@ -38,7 +39,7 @@ const RegisterForm = () => {
           </div>
           <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
             <div className="italic sm:col-span-1 md:text-right">
-              <label>Password</label>
+              <label>{t('Password', { ns: 'umbrellaSecurity' })}</label>
             </div>
             <div className="md:pl-2">
               <input
@@ -53,6 +54,7 @@ const RegisterForm = () => {
             </button>
           </div>
         </form>
+        <NotifyHandler />
       </div>
     </div>
   );

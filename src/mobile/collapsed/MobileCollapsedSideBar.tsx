@@ -1,20 +1,16 @@
 //import Locales from '@/components/sub-components/dropdown/Locales';
+import ToggleTheme from '@/components/ToggleTheme';
 import Collapsible from '@/mobile/collapsed/Collapsible';
-//import { setOption } from '@/reducers/filterSlice';
-//import { useAppDispatch } from '@/reducers/reduxHooks';
+import SiderBarButton from '@/mobile/collapsed/MobileSideBarButton';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 const MobileCollapsedSideBar = () => {
   const { t } = useTranslation();
-  //const dispatch = useAppDispatch();
-  /*const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    dispatch(setOption({ options: { category: e.currentTarget.value } }));
-  };*/
 
   return (
     <Collapsible>
-      <div className="w-screen flex flex-col bg-white text-center dark:bg-gray-800 dark:text-white">
+      <div className="w-screen flex flex-col bg-gray-800 text-center">
         <Link className="w-12 h-auto block" to="/">
           <img
             className="object-cover"
@@ -22,6 +18,7 @@ const MobileCollapsedSideBar = () => {
           />
         </Link>
       </div>
+      <ToggleTheme />
       <p className="w-full bg-red-800 text-white text-center">
         {t('Categories')}
       </p>
@@ -29,49 +26,15 @@ const MobileCollapsedSideBar = () => {
         className="block text-center text-black text-sm bg-red-600 no-underline text-base hover:bg-red-400"
         to="/products/search"
       >
-        {t('PopularItem')}
+        {t('HotProducts')}
       </Link>
-      <button
-        className="w-full bg-red-600 hover:bg-red-400"
-        value="PersonalCare"
-      >
-        <Link
-          className="text-black text-sm no-underline text-base"
-          to="/products/search"
-        >
-          {t('PersonalCare')}
-        </Link>
-      </button>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="HealthCare">
-        <Link
-          className="text-black text-sm no-underline text-base"
-          to="/products/search"
-        >
-          {t('HealthCare')}
-        </Link>
-      </button>
-      <button className="w-full bg-red-600 hover:bg-red-400" value="Medical">
-        <Link
-          className="text-black text-sm no-underline text-base"
-          to="/products/search"
-        >
-          {t('Medical')}
-        </Link>
-      </button>
+      <SiderBarButton labelValue="PersonalCare" path="/products/search" />
+      <SiderBarButton labelValue="HealthCare" path="/products/search" />
+
       <p className="w-full bg-red-800 text-white text-center">{t('Links')}</p>
-      <button className="w-full bg-red-600 hover:bg-red-400">
-        <Link
-          className="text-black text-sm no-underline text-base"
-          to="/recruitment"
-        >
-          {t('Recruitment')}
-        </Link>
-      </button>
-      <button className="w-full bg-red-600 hover:bg-red-400">
-        <Link className="text-black text-sm no-underline text-base" to="/about">
-          {t('About')}
-        </Link>
-      </button>
+      <SiderBarButton labelValue="Recruitment" path="/recruitment" />
+      <SiderBarButton labelValue="About" path="/about" />
+      <SiderBarButton labelValue="Meterials" path="/materials" />
     </Collapsible>
   );
 };

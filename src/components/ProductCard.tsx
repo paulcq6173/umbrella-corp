@@ -6,7 +6,7 @@ const ProductCard = ({ item }: { item: IProduct }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-11/12 m-auto bg-gray-200 dark:bg-gray-600 text-white dark:text-white border-2 border-transparent rounded-sm">
+    <div className="w-11/12 m-auto bg-gray-200 dark:bg-gray-600 text-black dark:text-white border-2 border-transparent rounded-sm">
       <div className="grid grid-cols-2 sm:grid-cols-3">
         <div className="col-span-1 object-cover bg-slate-200">
           <img className="p-1" src={item.imgUrl} />

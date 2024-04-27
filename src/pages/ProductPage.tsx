@@ -35,16 +35,16 @@ const ProductPage = () => {
         </div>
       </div>
       <div className="w-11/12 m-auto text-xs sm:text-sm">
-        <h3 className="text-sm sm:text-base font-medium">{t('ProductDesc')}</h3>
+        <h3 className="text-sm sm:text-base font-medium">
+          {t('ProductDesc', { ns: 'product' })}
+        </h3>
         <p>
           <strong>{item.slogan && item.slogan}</strong>
         </p>
         <p>{item.description}</p>
       </div>
       <div className="p-1">
-        <h3 className="font-medium">
-          {t('ProductInfo', { product: 'product' })}
-        </h3>
+        <h3 className="font-medium">{t('ProductInfo', { ns: 'product' })}</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 text-sm gap-0.5">
           <div className="col-span-1 sm:col-span-2 bg-gray-400 dark:text-white dark:bg-slate-600 font-medium">
             GTIN

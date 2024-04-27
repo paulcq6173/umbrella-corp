@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { Dispatch, SetStateAction } from 'react';
 
 // Define omit type for unions
 // Refer to https://github.com/microsoft/TypeScript/issues/42680
@@ -30,7 +31,14 @@ export interface IProduct {
   ratings: number;
 }
 
-//============== Back-end ==============
+export interface INotify {
+  message: string;
+  success?: boolean;
+}
+
+export type TDispatchString = Dispatch<SetStateAction<string | null>>;
+
+//======================= Back-end =======================
 interface IBaseUser {
   username: string;
   email?: string;

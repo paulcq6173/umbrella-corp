@@ -31,13 +31,13 @@ const Collapsible = (props: { children: ReactNode }) => {
   return (
     <div className="z-10">
       <button
-        className="w-8 border-2 border-transparent rounded-sm text-white cursor-pointer hover:bg-red-500 focus:border-red-600"
+        className="w-8 border-2 border-transparent rounded-sm text-black cursor-pointer dark:text-white hover:bg-red-500 focus:border-red-600"
         onClick={handleToggle}
       >
         <FontAwesomeIcon icon={faBars} />
       </button>
       <div
-        className={`fixed w-28 h-96 z-1 top-0 right-0 text-sm text-black overflow-x-hidden transition ease-in-out duration-300 bg-gray-200 opacity-95 ${
+        className={`fixed w-28 h-96 z-1 top-0 right-0 text-sm text-black overflow-x-hidden transition ease-in-out duration-300 bg-gray-400 opacity-95 ${
           open ? 'translate-x-0' : 'translate-x-28'
         }`}
       >

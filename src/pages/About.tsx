@@ -21,8 +21,8 @@ const AboutPage = () => {
       <hr className="w-11/12" />
       <div className="w-11/12 m-auto sm:text-base dark:text-white">
         <h2 className="font-medium text-base sm:text-md">Founders</h2>
-        {Founders.map((founder) => (
-          <div>
+        {Founders.map((founder, index) => (
+          <div key={index}>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
               <div className="col-span-1">
                 <img
@@ -33,8 +33,8 @@ const AboutPage = () => {
               <div className="overflow-auto sm:col-span-2 md:col-span-3 p-1">
                 <h3>{founder.founderName}</h3>
                 <h4 className="text-sm sm:text-base text-yellow-500">
-                  {founder.occupation.map((e) => (
-                    <li>{e}</li>
+                  {founder.occupation.map((e, i) => (
+                    <li key={i}>{e}</li>
                   ))}
                 </h4>
                 <p className="hidden sm:block text-xs sm:text-sm md:text-md">
