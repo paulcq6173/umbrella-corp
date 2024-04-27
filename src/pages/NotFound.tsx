@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   return (
-    <div className="w-screen bg-slate-200 dark:bg-slate-800">
+    <div className="w-screen bg-black items-center">
       <img
         className="md:object-cover cursor-none"
         src="/images/steamuserimages-a.akamaihd.jpg"

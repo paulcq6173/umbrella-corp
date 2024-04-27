@@ -39,13 +39,13 @@ export default defineConfig({
     },*/
   },
   server: {
-    /*proxy: {
+    proxy: {
       '/graphql': {
-        target: 'remote-api-url',
+        target: 'https://umbrella-corp-d4q4.onrender.com/graphql',
         changeOrigin: true,
       },
-    },*/
-    cors: false,
+    },
+    //cors: true,
   },
   plugins: [
     react(),

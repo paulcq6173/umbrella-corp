@@ -83,6 +83,6 @@ await new Promise<void>((resolve) =>
   httpServer.listen({ port: API_PORT }, resolve)
 );
 
-logger.info(`Server running on ${API_PORT}`);
+logger.info(`Server running on Port: ${API_PORT}`);
 
 export default app;
