@@ -6,7 +6,7 @@ const ProjectModel = ({ model }: { model: IEModel }) => {
     version,
     characteristics,
     experimentalType,
-    production,
+    massProducted,
     imgUrl,
   } = model;
 
@@ -22,7 +22,7 @@ const ProjectModel = ({ model }: { model: IEModel }) => {
           <div>
             <p>Model Version: {version}</p>
             <p>ExperimentalType: {experimentalType ? 'true' : 'false'}</p>
-            <p>Mass-produced: {production ? 'true' : 'false'}</p>
+            <p>Mass-produced: {massProducted ? 'true' : 'false'}</p>
           </div>
         </div>
         <div className="p-1">

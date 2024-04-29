@@ -6,10 +6,14 @@ const TopMessageBoard = () => {
   let mesTitle = 'For all new employees:';
   let description = 'Welcome on board!';
 
-  if (pathname.includes('signin')) {
+  if (pathname.includes('signup')) {
     mesTitle = 'Dear Customer:';
     description =
       'The sign up service currently disabled due to some problems.';
+  } else if (pathname.includes('archives')) {
+    mesTitle = 'All files are properties of umbrella corporation';
+    description =
+      'Requested file content as following, remember that you are not allowed to copy them:';
   }
 
   return (

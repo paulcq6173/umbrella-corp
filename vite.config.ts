@@ -38,15 +38,15 @@ export default defineConfig({
       },
     },*/
   },
-  server: {
+  /*server: {
     proxy: {
       '/graphql': {
         target: 'https://umbrella-corp-d4q4.onrender.com/graphql',
         changeOrigin: true,
       },
     },
-    //cors: true,
-  },
+    //cors: false,
+  },*/
   plugins: [
     react(),
     svgr({

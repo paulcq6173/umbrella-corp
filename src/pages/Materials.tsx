@@ -9,6 +9,11 @@ const Materials = () => {
           <li>https://www.amazon.com/</li>
           <li>https://wallpapercave.com</li>
         </ul>
+        <label>Illustrators</label>
+        <ul className="list-inside">
+          <li>https://www.deviantart.com/lenstu82</li>
+          <li>https://www.deviantart.com/mantisverde</li>
+        </ul>
       </div>
     </div>
   );

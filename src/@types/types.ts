@@ -35,13 +35,31 @@ export interface INotify {
   success?: boolean;
 }
 
+export interface IDocument {
+  id: string;
+  umFileId: string;
+  authors?: Array<string>;
+  fileName: string;
+  content: Array<{
+    pageNum: number;
+    title?: string;
+    paragraph1: string;
+    paragraph2?: string;
+    paragraph3?: string;
+    paragraph4?: string;
+    paragraph5?: string;
+  }>;
+  imgUrls?: Array<string>;
+  date: string;
+}
+
 export interface IEModel {
   id: string;
   codeName: string;
   version: string;
   characteristics: string;
   experimentalType: boolean;
-  production?: boolean;
+  massProducted?: boolean;
   imgUrl?: string;
 }
 
@@ -88,6 +106,29 @@ export interface IEmployeeSchema {
   updatedAt?: Date;
 }
 
+export interface IProjectSchema {
+  projectName: string;
+  description: string;
+  models: Array<Types.ObjectId>;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface IBOWSchema {
+  codeName: string;
+  version: string;
+  based?: Array<string>;
+  height?: string;
+  mass?: string;
+  createdVia?: Array<string>;
+  characteristics: string;
+  experimentalType: boolean;
+  massProducted: boolean;
+  imgUrl: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
 export interface IUpdateUserInfo
   extends UnionOmit<IUserSchema, 'username' | 'passwordHash'> {
   password: string;
@@ -98,3 +139,9 @@ export type TLoginInfo = Pick<IRegUser, 'username' | 'password'>;
 export interface IServerContext {
   currentUser?: IUserSchema;
 }
+
+export interface ICreateBOW extends IBOWSchema {
+  projectName: string;
+}
+
+export interface ICreateProject extends UnionOmit<IProjectSchema, 'models'> {}

@@ -1,4 +1,26 @@
+import createBOW from '@server/graphql/mutations/createBOW';
+import createProject from './mutations/createProject';
+
 const typeDefs = `
+  type BOWProject {
+    projectName: String!
+    description: String!
+    models: [BOW!]!
+  }
+
+  type BOW {
+    codeName: String!
+    version: String!
+    based: [String]
+    height: String
+    mass: String
+    createdVia: [String]
+    characteristics: String!
+    experimentalType: Boolean!
+    massProducted: Boolean!
+    imgUrl: String!
+  }
+
   type Employee {
     organizationName: String!
     employeeName: String!
@@ -27,7 +49,10 @@ const typeDefs = `
   }
 
   type Query {
+    projectCount: Int!
+    bowCount: Int!
     userCount: Int!
+    allProjects: [BOWProject!]!
     allUsers: [User!]!
     findUser(id: ID!): User
     findEmployee(employeeName: String!): Employee
@@ -49,6 +74,9 @@ const typeDefs = `
   }
 
   type Mutation {
+    ${createProject.typeDef}
+    ${createBOW.typeDef}
+
     createUser(
       username: String!
       password: String!

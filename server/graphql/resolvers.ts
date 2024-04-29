@@ -5,11 +5,16 @@ import {
   IUpdateUserInfo,
   TLoginInfo,
 } from '@/@types/types';
+import createBOW from '@server/graphql/mutations/createBOW';
+import BOW from '@server/models/bowModel';
 import Organization from '@server/models/organizationModel';
+import Project from '@server/models/projectModel';
 import User from '@server/models/userModel';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
+import createProject from './mutations/createProject';
+import allProjects from './queries/allProjects';
 
 const passwordValidator = (password: string) => {
   return /\d{4}/.test(password);
@@ -17,7 +22,10 @@ const passwordValidator = (password: string) => {
 
 const resolvers = {
   Query: {
+    projectCount: () => Project.collection.countDocuments(),
+    bowCount: () => BOW.collection.countDocuments(),
     userCount: () => User.collection.countDocuments(),
+    allProjects: allProjects.resolver,
     allUsers: async () => {
       try {
         const users = await User.find({});
@@ -44,13 +52,15 @@ const resolvers = {
       return foundEmployee;
     },
     me: async (
-      _root: unknown,
+      _root: string,
       _args: unknown,
       { currentUser }: IServerContext
     ) => currentUser,
   },
   Mutation: {
-    createUser: async (_root: unknown, args: IRegUser) => {
+    createProject: createProject.resolver,
+    createBOW: createBOW.resolver,
+    createUser: async (_root: string, args: IRegUser) => {
       const { username, password } = args;
 
       if (!passwordValidator(password)) {
@@ -82,7 +92,7 @@ const resolvers = {
       }
     },
     updateUser: async (
-      _root: unknown,
+      _root: string,
       args: IUpdateUserInfo,
       { currentUser }: IServerContext
     ) => {
@@ -140,7 +150,7 @@ const resolvers = {
       return updatedUser;
     },
     updateEmployee: async (
-      _root: unknown,
+      _root: string,
       args: { content: IEmployeeSchema },
       { currentUser }: IServerContext
     ) => {
@@ -229,7 +239,7 @@ const resolvers = {
 
       return updatedEmployee;
     },
-    login: async (_root: unknown, args: TLoginInfo) => {
+    login: async (_root: string, args: TLoginInfo) => {
       try {
         const foundUser = await User.findOne({ username: args.username });
 

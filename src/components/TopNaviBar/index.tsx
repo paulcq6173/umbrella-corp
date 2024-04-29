@@ -23,6 +23,7 @@ const TopNaviBar = () => {
         <TopNaviButton labelValue="HotProducts" path="/products/search" />
         <Flexible />
         <TopNaviButton labelValue="Recruitment" path="/recruitment" />
+        <TopNaviButton labelValue="About" path="/about" />
         <TopNaviButton labelValue="Materials" path="/materials" />
         <ToggleTheme />
       </div>

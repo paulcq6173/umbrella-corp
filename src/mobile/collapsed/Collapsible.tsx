@@ -4,14 +4,23 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 
 const Collapsible = (props: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
-  // For monitoring collapsible component on mobile devices
+  // Using useRef get access to the DOM
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleTouchOutside(event: TouchEvent) {
-      const target = event.target as HTMLElement;
-      if (wrapperRef.current && !wrapperRef.current.contains(target)) {
-        setOpen(!open);
+      if (!open) {
+        // if collapsed bar is closed, then do nothing.
+        return;
+      }
+      // The listener is not called if the event is triggered on a
+      // non-element target. e.g.: document.body.firstChild.click().
+      // also see https://github.com/Microsoft/TypeScript/issues/29540
+      if (event.target instanceof HTMLElement) {
+        const { target } = event;
+        if (wrapperRef.current && !wrapperRef.current.contains(target)) {
+          setOpen(!open);
+        }
       }
     }
     // attaches an eventListener to listen when componentDidMount
@@ -22,14 +31,14 @@ const Collapsible = (props: { children: ReactNode }) => {
       // componentWillUnmount to cleanup
       document.removeEventListener('touchstart', handleTouchOutside);
     };
-  }, [wrapperRef, open]);
+  }, [open]);
 
   const handleToggle = () => {
     setOpen(!open);
   };
 
   return (
-    <div className="z-10">
+    <div className="z-10" ref={wrapperRef}>
       <button
         className="w-8 border-2 border-transparent rounded-sm text-black cursor-pointer dark:text-white hover:bg-red-500 focus:border-red-600"
         onClick={handleToggle}
