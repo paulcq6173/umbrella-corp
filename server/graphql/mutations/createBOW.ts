@@ -46,7 +46,7 @@ const resolver = async (_root: unknown, args: ICreateBOW) => {
   let newBOW;
 
   try {
-    newBOW = new BOW({ ...args, createdAt: new Date().toLocaleString() });
+    newBOW = new BOW({ ...args, createdAt: new Date().toUTCString() });
 
     await newBOW.save();
 

@@ -1,8 +1,13 @@
 import useField from '@/hooks/useField';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-const SearchInterface = () => {
-  const [sortOption, setSortOption] = useState<string>('latest');
+const SearchInterface = ({
+  sortOption,
+  setSortOption,
+}: {
+  sortOption: string;
+  setSortOption: Dispatch<SetStateAction<string>>;
+}) => {
   const useSearch = useField('search');
 
   return (
@@ -14,9 +19,9 @@ const SearchInterface = () => {
             id="oldest"
             className="peer/oldest"
             type="radio"
-            value="oldest"
-            checked={sortOption === 'oldest'}
-            onChange={() => setSortOption('oldest')}
+            value="DATE_ASC"
+            checked={sortOption === 'DATE_ASC'}
+            onChange={() => setSortOption('DATE_ASC')}
           />
           <label
             htmlFor="oldest"
@@ -30,9 +35,9 @@ const SearchInterface = () => {
             id="latest"
             className="peer/latest"
             type="radio"
-            value="latest"
-            checked={sortOption === 'latest'}
-            onChange={() => setSortOption('latest')}
+            value="DATE_DESC"
+            checked={sortOption === 'DATE_DESC'}
+            onChange={() => setSortOption('DATE_DESC')}
           />
           <label
             htmlFor="latest"

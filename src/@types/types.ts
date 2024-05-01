@@ -6,6 +6,11 @@ type UnionOmit<T, K extends string | number | symbol> = T extends unknown
   ? Omit<T, K>
   : never;
 
+interface IBaseDate {
+  createdAt: string;
+  updatedAt?: string;
+}
+
 export interface IFounder {
   id: number;
   founderName: string;
@@ -14,21 +19,7 @@ export interface IFounder {
   intro: string;
 }
 
-export interface IProduct {
-  id: number;
-  gtin: string;
-  name: string;
-  slogan?: string;
-  imgUrl: string;
-  description: string;
-  details: {
-    pulishedDate: string;
-    manufacturer: string;
-  };
-  genre: string;
-  listPrice: number;
-  ratings: number;
-}
+export type TProduct = UnionOmit<IMedicineSchema, 'createdAt' | 'updatedAt'>;
 
 export interface INotify {
   message: string;
@@ -53,31 +44,23 @@ export interface IDocument {
   date: string;
 }
 
-export interface IEModel {
+export interface IEModel extends IBOWSchema {
   id: string;
-  codeName: string;
-  version: string;
-  characteristics: string;
-  experimentalType: boolean;
-  massProducted?: boolean;
-  imgUrl?: string;
 }
 
-export interface IProject {
+export interface IProject extends IBaseDate {
   id: string;
   projectName: string;
   description: string;
-  Models: IEModel[];
+  models: Array<IEModel>;
 }
 
 //======================= Back-end =======================
-interface IBaseUser {
+interface IBaseUser extends IBaseDate {
   username: string;
   email?: string;
   phone?: string;
   fullName?: string;
-  createdAt: Date;
-  updatedAt?: Date;
 }
 
 export interface IRegUser extends IBaseUser {
@@ -92,7 +75,7 @@ export interface IUserSchema extends IBaseUser {
   id: string;
 }
 
-export interface IEmployeeSchema {
+export interface IEmployeeSchema extends IBaseDate {
   organizationName: string;
   employeeName: string;
   employeeNumber: string;
@@ -102,19 +85,30 @@ export interface IEmployeeSchema {
     cardNumber: number;
     securityLevel: string;
   };
-  createdAt: Date;
-  updatedAt?: Date;
 }
 
-export interface IProjectSchema {
+export interface IMedicineSchema extends IBaseDate {
+  gtin: string;
+  name: string;
+  slogan?: string;
+  imgUrl: string;
+  description: string;
+  info: {
+    pulishedDate: string;
+    manufacturer: string;
+  };
+  genre: string;
+  listPrice: number;
+  ratings: number;
+}
+
+export interface IProjectSchema extends IBaseDate {
   projectName: string;
   description: string;
   models: Array<Types.ObjectId>;
-  createdAt: string;
-  updatedAt?: string;
 }
 
-export interface IBOWSchema {
+export interface IBOWSchema extends IBaseDate {
   codeName: string;
   version: string;
   based?: Array<string>;
@@ -125,8 +119,6 @@ export interface IBOWSchema {
   experimentalType: boolean;
   massProducted: boolean;
   imgUrl: string;
-  createdAt: string;
-  updatedAt?: string;
 }
 
 export interface IUpdateUserInfo

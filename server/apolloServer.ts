@@ -13,18 +13,18 @@ import resolvers from './graphql/resolvers';
 import typeDefs from './graphql/schema';
 
 const apolloErrorFormatter = (error: unknown) => {
-  const isGraphQLError = !(error instanceof Error);
+  let normalizedError;
+  let message = 'Unexpected Error occured';
 
-  if (!isGraphQLError) {
+  if (error instanceof Error) {
     logger.error(error.message);
+    message = error.message;
   }
 
-  let normalizedError;
   if (error instanceof GraphQLError) {
     normalizedError = error;
   } else {
-    console.error(error);
-    normalizedError = new GraphQLError('Unexpected Error occured', {
+    normalizedError = new GraphQLError(message, {
       extensions: { code: 'INTERNAL_SERVER_ERROR' },
     });
   }

@@ -1,11 +1,41 @@
 import createBOW from '@server/graphql/mutations/createBOW';
+import createProduct from './mutations/createProduct';
 import createProject from './mutations/createProject';
+import createUser from './mutations/createUser';
+import employeeMutation from './mutations/employeeMutation';
+import login from './mutations/login';
+import updateUser from './mutations/updateUser';
+import allProducts from './queries/allProducts';
+import allProjects from './queries/allProjects';
+import findProductById from './queries/findProductById';
+import findProductsByName from './queries/findProductsByName';
+import findProjectById from './queries/findProjectById';
 
 const typeDefs = `
+  type MedicineInfo {
+    pulishedDate: String!
+    manufacturer: String!
+  }
+
+  type Medicine {
+    gtin: String!
+    name: String!
+    slogan: String
+    imgUrl: String!
+    description: String!
+    info: MedicineInfo!
+    genre: String!
+    listPrice: Int!
+    ratings: Int
+  }
+
   type BOWProject {
+    id: ID!
     projectName: String!
     description: String!
     models: [BOW!]!
+    createdAt: String!
+    updatedAt: String
   }
 
   type BOW {
@@ -49,11 +79,15 @@ const typeDefs = `
   }
 
   type Query {
-    projectCount: Int!
-    bowCount: Int!
-    userCount: Int!
-    allProjects: [BOWProject!]!
-    allUsers: [User!]!
+    projectCount: Int
+    bowCount: Int
+    userCount: Int
+    ${allProducts.typeDef}
+    ${findProductById.typeDef}
+    ${findProductsByName.typeDef}
+    ${allProjects.typeDef}
+    ${findProjectById.typeDef}
+    allUsers: [User]
     findUser(id: ID!): User
     findEmployee(employeeName: String!): Employee
     me: User
@@ -65,41 +99,27 @@ const typeDefs = `
   }
 
   input updateOrganizationInput {
-    organizationName: String!
+    organizationName: String
     employeeName: String!
-    employeeNumber: String!
-    sex: String!
-    unit: String!
-    idCard: UmIDCardInput!
+    employeeNumber: String
+    sex: String
+    unit: String
+    idCard: UmIDCardInput
+  }
+
+  input medicineInfoInput {
+    pulishedDate: String!
+    manufacturer: String!
   }
 
   type Mutation {
+    ${createProduct.typeDef}
     ${createProject.typeDef}
     ${createBOW.typeDef}
-
-    createUser(
-      username: String!
-      password: String!
-      email: String
-      phone: String
-      fullName: String
-      ): User
-
-    updateUser(
-      id: ID!
-      password: String
-      email: String
-      phone: String
-      fullName: String
-    ): User
-
-    updateEmployee(content: updateOrganizationInput
-    ): Employee
-
-    login(
-      username: String!
-      password: String!
-    ): Token
+    ${createUser.typeDef}
+    ${updateUser.typeDef}
+    ${employeeMutation.typeDef}
+    ${login.typeDef}
   }
 `;
 

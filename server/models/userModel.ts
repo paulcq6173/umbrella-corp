@@ -5,7 +5,7 @@ import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
 // refers https://mongoosejs.com/docs/typescript.html
-const userSchema = new Schema({
+const userSchema = new Schema<IUserSchema>({
   username: {
     type: String,
     required: [true, 'username field is blank'],
@@ -23,12 +23,12 @@ const userSchema = new Schema({
   // For schema definition
   organization: { type: Schema.Types.ObjectId, ref: 'Organization' },
   createdAt: {
-    type: Date,
+    type: String,
     required: [true, 'createdAt is null'],
     minlength: [8, 'Must be at least 8, got {VALUE}'],
   },
   updatedAt: {
-    type: Date,
+    type: String,
     minlength: [8, 'Must be at least 8, got {VALUE}'],
   },
 });

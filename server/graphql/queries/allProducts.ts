@@ -1,15 +1,15 @@
-import Project from '@server/models/projectModel';
+import Product from '@server/models/medicineModel';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
-  allProjects: [BOWProject]
+  allProducts: [Medicine]
 `;
 
 const resolver = async () => {
-  let allProjects;
+  let allProducts;
 
   try {
-    allProjects = await Project.find().populate('models');
+    allProducts = await Product.find();
   } catch (error) {
     if (error instanceof Error) {
       throw new GraphQLError(error.message, {
@@ -18,10 +18,13 @@ const resolver = async () => {
         },
       });
     }
-    throw new Error('Unexpected Error occured when query all projects');
+    throw new Error('Unexpected Error occured when query all products');
   }
 
-  return allProjects;
+  return allProducts;
 };
 
-export default { typeDef, resolver };
+export default {
+  typeDef,
+  resolver,
+};

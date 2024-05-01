@@ -16,9 +16,9 @@ const Archives = () => {
         <TopMessageBoard />
       </div>
 
-      <div className="relative h-screen">
-        <img className="w-full" src={bgUrl} alt="archives-bg" />
-        <div className="absolute w-11/12 top-8 left-2 overflow-y-scroll bg-gray-400 opacity-80">
+      <div className="relative h-screen md:h-fit">
+        <img className="w-full object-fit" src={bgUrl} alt="archives-bg" />
+        <div className="absolute w-11/12 top-8 left-2 sm:left-4 overflow-y-scroll bg-gray-400 opacity-80">
           {fileList.map((doc, index) => (
             <p key={index}>
               <Link

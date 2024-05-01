@@ -45,7 +45,7 @@ const LoginForm = () => {
       <TopMessageBoard />
 
       <div className="w-11/12 h-64 sm:w-4/5 md:w-6/7 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
-        <h2 className="italic text-sm sm:text-base text-red-800 text-center bg-black">
+        <h2 className="italic text-sm sm:text-base text-red-600 text-center bg-black">
           {t(`System.CTRL`, { ns: 'umbrellaSecurity' })}
         </h2>
         <UmbrellaLabel title="SignIn" />

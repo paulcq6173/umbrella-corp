@@ -1,19 +1,38 @@
-import { Products } from '@/dummyData';
+import { SendNotify } from '@/components/NotifyHandler';
+import { GET_PRODUCT_BY_GTIN } from '@/graphql/queries';
+import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
 const ProductPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const item = Products.find((e) => e.gtin === id);
+  const { data, loading } = useQuery(GET_PRODUCT_BY_GTIN, {
+    variables: { gtin: id },
+    onError: (error) => {
+      SendNotify({ message: error.message });
+    },
+  });
 
-  if (!item) {
+  if (loading) {
     return (
-      <div className="bg-gray-200 dark:bg-black">
-        <p>We're sorry, you requested product doesn't exist.</p>
+      <div className="bg-gray-200 dark:bg-black animate-pulse">
+        <p className="dark:text-white">Loading</p>
       </div>
     );
   }
+
+  if (!data) {
+    return (
+      <div className="bg-gray-200 dark:bg-black">
+        <p className="dark:text-white">
+          We're sorry, you requested product doesn't exist.
+        </p>
+      </div>
+    );
+  }
+
+  const item = data.findProductById;
 
   return (
     <div className="w-screen bg-gray-200 dark:bg-slate-400">
@@ -53,12 +72,12 @@ const ProductPage = () => {
           <div className="col-span-1 sm:col-span-2 bg-gray-400 dark:text-white dark:bg-slate-600 font-medium">
             Pulished Date
           </div>
-          <div className="sm:col-span-2">{item.details.pulishedDate}</div>
+          <div className="sm:col-span-2">{item.info.pulishedDate}</div>
           <div className="col-span-1 sm:col-span-2 bg-gray-400 dark:text-white dark:bg-slate-600 font-medium">
             Manufacturer
           </div>
           <div className="sm:col-span-2 overflow-scroll">
-            {item.details.manufacturer}
+            {item.info.manufacturer}
           </div>
         </div>
       </div>

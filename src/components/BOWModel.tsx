@@ -8,6 +8,10 @@ const ProjectModel = ({ model }: { model: IEModel }) => {
     experimentalType,
     massProducted,
     imgUrl,
+    based,
+    height,
+    mass,
+    createdVia,
   } = model;
 
   return (
@@ -23,6 +27,24 @@ const ProjectModel = ({ model }: { model: IEModel }) => {
             <p>Model Version: {version}</p>
             <p>ExperimentalType: {experimentalType ? 'true' : 'false'}</p>
             <p>Mass-produced: {massProducted ? 'true' : 'false'}</p>
+            {based && based.length > 0 && (
+              <ul>
+                based:{' '}
+                {based.map((e, index) => (
+                  <li key={index}>{e}</li>
+                ))}
+              </ul>
+            )}
+            {height && <p>height: {height}</p>}
+            {mass && <p>mass: {mass}</p>}
+            {createdVia && createdVia.length > 0 && (
+              <ul>
+                createdVia:{' '}
+                {createdVia.map((e, index) => (
+                  <li key={index}>{e}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
         <div className="p-1">

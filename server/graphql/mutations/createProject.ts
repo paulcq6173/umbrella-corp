@@ -30,7 +30,7 @@ const resolver = async (_root: unknown, args: ICreateProject) => {
   try {
     newProject = new Project({
       ...args,
-      createdAt: new Date().toLocaleString(),
+      createdAt: new Date().toUTCString(),
     });
 
     await newProject.save();

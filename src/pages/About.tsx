@@ -6,7 +6,7 @@ const AboutPage = () => {
       <h1 className="text-center text-red-600 text-base font-bold sm:text-md">
         About us
       </h1>
-      <article>
+      <article className="pl-2 pr-2">
         <p className="text-base sm:text-base dark:text-white">
           The Umbrella Corporation is a multinational conglomerate with
           subsidiaries active in a variety of industries from the 1980s to the
@@ -17,8 +17,8 @@ const AboutPage = () => {
           chemicals, pharmaceuticals, industrial machine production, consumer
           products, health foods, the transportation industry and tourism.
         </p>
+        <hr className="w-11/12 pl-2 pr-2" />
       </article>
-      <hr className="w-11/12" />
       <div className="w-11/12 m-auto sm:text-base dark:text-white">
         <h2 className="font-medium text-base sm:text-md">Founders</h2>
         {Founders.map((founder, index) => (

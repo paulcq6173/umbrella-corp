@@ -1,31 +1,32 @@
-import {
-  IEmployeeSchema,
-  IRegUser,
-  IServerContext,
-  IUpdateUserInfo,
-  TLoginInfo,
-} from '@/@types/types';
+import { IServerContext } from '@/@types/types';
 import createBOW from '@server/graphql/mutations/createBOW';
 import BOW from '@server/models/bowModel';
 import Organization from '@server/models/organizationModel';
 import Project from '@server/models/projectModel';
 import User from '@server/models/userModel';
-import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
-import jwt from 'jsonwebtoken';
+import createProduct from './mutations/createProduct';
 import createProject from './mutations/createProject';
+import createUser from './mutations/createUser';
+import employeeMutation from './mutations/employeeMutation';
+import login from './mutations/login';
+import updateUser from './mutations/updateUser';
+import allProducts from './queries/allProducts';
 import allProjects from './queries/allProjects';
-
-const passwordValidator = (password: string) => {
-  return /\d{4}/.test(password);
-};
+import findProductById from './queries/findProductById';
+import findProductsByName from './queries/findProductsByName';
+import findProjectById from './queries/findProjectById';
 
 const resolvers = {
   Query: {
     projectCount: () => Project.collection.countDocuments(),
     bowCount: () => BOW.collection.countDocuments(),
     userCount: () => User.collection.countDocuments(),
+    allProducts: allProducts.resolver,
+    findProductById: findProductById.resolver,
+    findProductsByName: findProductsByName.resolver,
     allProjects: allProjects.resolver,
+    findProjectById: findProjectById.resolver,
     allUsers: async () => {
       try {
         const users = await User.find({});
@@ -58,226 +59,13 @@ const resolvers = {
     ) => currentUser,
   },
   Mutation: {
+    createProduct: createProduct.resolver,
     createProject: createProject.resolver,
     createBOW: createBOW.resolver,
-    createUser: async (_root: string, args: IRegUser) => {
-      const { username, password } = args;
-
-      if (!passwordValidator(password)) {
-        throw new GraphQLError('Password must atleast be 4 characters', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-          },
-        });
-      }
-
-      try {
-        const passwordHash = await bcrypt.hash(password, 10);
-        const user = new User({
-          username,
-          passwordHash,
-          email: args.email || '',
-          phone: args.phone || '',
-          fullName: args.fullName || '',
-          createdAt: new Date(),
-        });
-        await user.save();
-        return user;
-      } catch (error) {
-        throw new GraphQLError('Invalid argument value', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-          },
-        });
-      }
-    },
-    updateUser: async (
-      _root: string,
-      args: IUpdateUserInfo,
-      { currentUser }: IServerContext
-    ) => {
-      // Validated user allowed only
-      if (!currentUser) {
-        throw new GraphQLError('not authenticated', {
-          extensions: {
-            code: 'GRAPHQL_VALIDATION_FAILED',
-          },
-        });
-      }
-
-      const { id, email, phone, password, fullName } = args;
-      let updatedUser: IUpdateUserInfo;
-
-      try {
-        // full-fledged validation is necessary
-        const foundUser = await User.findById({ _id: id });
-
-        if (!foundUser) {
-          throw new GraphQLError('Invalid id, user data may has been deleted', {
-            extensions: {
-              code: 'BAD_USER_INPUT',
-            },
-          });
-        }
-
-        if (password) {
-          if (!passwordValidator(password)) {
-            throw new GraphQLError('Password must atleast be 4 characters', {
-              extensions: {
-                code: 'BAD_USER_INPUT',
-              },
-            });
-          }
-
-          foundUser.passwordHash = await bcrypt.hash(password, 10);
-        }
-
-        foundUser.email = email ? email : foundUser.email;
-        foundUser.phone = phone ? phone : foundUser.phone;
-        foundUser.fullName = fullName ? fullName : foundUser.fullName;
-
-        await foundUser.save();
-
-        updatedUser = await foundUser.populate('Organization');
-      } catch (error) {
-        throw new GraphQLError('Invalid argument value', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-          },
-        });
-      }
-
-      return updatedUser;
-    },
-    updateEmployee: async (
-      _root: string,
-      args: { content: IEmployeeSchema },
-      { currentUser }: IServerContext
-    ) => {
-      // Validated user allowed only
-      if (!currentUser) {
-        throw new GraphQLError('not authenticated', {
-          extensions: {
-            code: 'GRAPHQL_VALIDATION_FAILED',
-          },
-        });
-      }
-
-      const {
-        organizationName,
-        employeeName,
-        employeeNumber,
-        sex,
-        unit,
-        idCard,
-      } = args.content;
-      let updatedEmployee;
-
-      try {
-        const foundEmployee = await Organization.findOne({ employeeName });
-
-        if (foundEmployee) {
-          foundEmployee.organizationName = organizationName
-            ? organizationName
-            : foundEmployee.organizationName;
-          foundEmployee.employeeName = employeeName
-            ? employeeName
-            : foundEmployee.employeeName;
-          foundEmployee.employeeNumber = employeeNumber
-            ? employeeNumber
-            : foundEmployee.employeeNumber;
-          foundEmployee.sex = sex ? sex : foundEmployee.sex;
-          foundEmployee.unit = unit ? unit : foundEmployee.unit;
-          foundEmployee.idCard = idCard ? idCard : foundEmployee.idCard;
-          foundEmployee.updatedAt = new Date();
-
-          foundEmployee.save();
-
-          updatedEmployee = foundEmployee;
-        } else {
-          if (!employeeName) {
-            throw new GraphQLError('employee name field must be filled', {
-              extensions: {
-                code: 'BAD_USER_INPUT',
-              },
-            });
-          }
-          const foundUser = await User.findOne({ fullName: employeeName });
-
-          if (!foundUser) {
-            throw new GraphQLError('User not exist in employee list', {
-              extensions: {
-                code: 'NOT_FOUND_ERROR',
-              },
-            });
-          }
-
-          const newEmployee = new Organization({
-            organizationName,
-            employeeName,
-            employeeNumber,
-            sex,
-            unit,
-            idCard,
-            createdAt: new Date(),
-          });
-
-          await newEmployee.save();
-
-          foundUser.organization = newEmployee.id;
-          await foundUser.save();
-
-          updatedEmployee = newEmployee;
-        }
-      } catch (error) {
-        throw new GraphQLError('Invalid argument value', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-          },
-        });
-      }
-
-      return updatedEmployee;
-    },
-    login: async (_root: string, args: TLoginInfo) => {
-      try {
-        const foundUser = await User.findOne({ username: args.username });
-
-        if (!foundUser) {
-          throw new GraphQLError('User not found');
-        }
-        const validated = bcrypt.compareSync(
-          args.password,
-          foundUser.passwordHash
-        );
-
-        if (!validated) {
-          throw new GraphQLError('validatation failed', {
-            extensions: {
-              code: 'BAD_USER_INPUT',
-            },
-          });
-        }
-
-        const payload = {
-          username: foundUser.username,
-          id: foundUser._id,
-        };
-
-        const secret = import.meta.env.VITE_JWT_SEC;
-
-        const token = jwt.sign(payload, secret, { expiresIn: '1d' });
-        return { value: token };
-      } catch (error) {
-        const message =
-          error instanceof Error ? error.message : 'Failed to validate';
-        throw new GraphQLError(message, {
-          extensions: {
-            code: 'GRAPHQL_VALIDATION_FAILED',
-          },
-        });
-      }
-    },
+    createUser: createUser.resolver,
+    updateUser: updateUser.resolver,
+    updateOrCreateEmployee: employeeMutation.resolver,
+    login: login.resolver,
   },
 };
 

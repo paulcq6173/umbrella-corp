@@ -1,4 +1,4 @@
-import { IDocument, IFounder, IProduct, IProject } from './@types/types';
+import { IDocument, IFounder, IProject, TProduct } from './@types/types';
 
 export const Founders: IFounder[] = [
   {
@@ -228,9 +228,8 @@ export const Docs: Array<IDocument> = [
   },
 ];
 
-export const Products: Array<IProduct> = [
+export const Products: Array<TProduct> = [
   {
-    id: 1,
     gtin: 'b111c40c59784379a146645c28434eb0',
     name: 'Nature Made Extra Strength Vitamin D3 5000 IU (125 mcg)',
     slogan:
@@ -239,7 +238,7 @@ export const Products: Array<IProduct> = [
       'https://m.media-amazon.com/images/S/aplus-media-library-service-media/b432a963-a7e5-4a50-8116-26dc65f2ffe2.__CR0,0,2400,2400_PT0_SX300_V1___.jpg',
     description:
       'Nature Made Vitamin D3 5000 IU (125 mcg) is formulated for those with higher vitamin D needs or deficiency as determined by a healthcare professional. This supplement offers 625% of the daily value for this critical immune, bone, and muscle health support nutrient. Maintaining adequate levels of Vitamin D in your body throughout the entire year, has been shown to be an important part of your overall health.',
-    details: {
+    info: {
       pulishedDate: '2000-11-29',
       manufacturer: 'Umbrella Pharmaceuticals',
     },
@@ -248,7 +247,6 @@ export const Products: Array<IProduct> = [
     ratings: 4.8,
   },
   {
-    id: 2,
     gtin: '4a23f720e005bc9a0a0e45534daf27a3',
     name: 'Nature Made Vitamin B1 100 mg',
     slogan: 'HELPS SUPPORT BRAIN CELL & NERVOUS SYSTEM FUNCTION+ ',
@@ -256,7 +254,7 @@ export const Products: Array<IProduct> = [
       'https://m.media-amazon.com/images/S/aplus-media-library-service-media/fccdfe58-7b91-4fe4-a515-d91398cefe13.__CR0,0,2400,2400_PT0_SX300_V1___.jpg',
     description:
       'Nature Made Vitamin B1 100 mg Tablets help support a healthy brain and provide nervous system support. Sourced from high quality ingredients, this gluten free B1 supplement is a dietary supplement that has no color added, no artificial flavors and no preservatives. This Nature Made B1 vitamin, also known as Thiamin, provides energy metabolism support(1). For those who don’t receive enough B1 in their diet, these B1 dietary supplements can help. Adults take one of these B1 tablets daily with water and a meal. Nature Made supplements are quality you can trust. USP has tested and verified ingredients, potency and manufacturing process. USP sets official standards for dietary supplements. Visit the USP verified website for more information. (1)Helps convert food into cellular energy. *Based on a survey of pharmacists who recommend branded vitamins and supplements.',
-    details: {
+    info: {
       pulishedDate: '1999-10-07',
       manufacturer: 'Umbrella Pharmaceuticals',
     },
@@ -265,7 +263,6 @@ export const Products: Array<IProduct> = [
     ratings: 4.7,
   },
   {
-    id: 3,
     gtin: '1019098f7a7bcffab51967148cac3077',
     name: "Nature's Bounty Zinc",
     slogan: 'Immune Support You Can Trust',
@@ -273,7 +270,7 @@ export const Products: Array<IProduct> = [
       'https://m.media-amazon.com/images/I/71PPuAK-auL._AC_UL480_FMwebp_QL65_.jpg',
     description:
       'Made by the #1 brand for Zinc supplements (2) support your immune system and overall health with Nature’s Bounty Zinc. (1) One 50 mg caplet a day provides more than your daily requirement of this essential mineral to keep you feeling your best. (1) Research shows that supplementing with Zinc year-round has many benefits. In addition to playing a vital role in immune support, Zinc can also function as an antioxidant in the body, contribute to skin and bone health, and assist in the formation of DNA. (1) As a component of the enzyme collagenese, Zinc has been clinically studied for its contribution to skin health. (1) For additional flexibility to meet dietary needs, Nature’s Bounty Zinc caplets are non-GMO and sugar and gluten free. For adults, take one caplet daily, preferably with a meal. With over 50 years of expertise and as the #1 Brand for Zinc supplements (2), you can trust that Nature’s Bounty Zinc supplements are a product of our company’s dedication to quality, consistency, and scientific research.',
-    details: {
+    info: {
       pulishedDate: '1998-05-22',
       manufacturer: 'Umbrella Pharmaceuticals',
     },
@@ -283,13 +280,13 @@ export const Products: Array<IProduct> = [
   },
 ];
 
-export const Projects: IProject[] = [
+export const Projects: Array<IProject> = [
   {
     id: '7f1a21c6c8d5065f',
     projectName: 'Cerberus',
     description:
       'An early attempt at creating a controllable Bio Organic Weapon by Umbrella USA, in a project led by the Arklay Laboratory. Pronounced as the Greek word, "Kerberos", this creature was named after the mythological guardian of Hades, a gigantic dog with three heads and a collar made of venomous snakes.',
-    Models: [
+    models: [
       {
         id: 'aeabbc9d0c269b7a058cba822e559865',
         codeName: 'MA-39',
@@ -297,17 +294,20 @@ export const Projects: IProject[] = [
         characteristics:
           'The Cerberus Project began in the early 1980s as the β strain was developed. It was hoped that the improved t-Virus strain would create mutants more adequate for sale as military products, and dobermans were specifically selected for the project due to their traits favouring military service. Though they suffered skin deterioration, their muscles were left largely intact, and this and their increased strength and aggression made them more dangerous. As this B.O.W. species was created from an existing animal, unlike the Hunter Program, the cost to create the Cerberus prototypes was low. Deemed a success, the later Cerberuses were created by cloning one of the prototypes.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/6/65/Cerberus_-_Resident_Evil.png',
+        createdAt: '1995-07-05',
       },
     ],
+    createdAt: '1995-07-01',
   },
   {
     id: '8c3b48b6ac57289f',
     projectName: 'Queen Leech',
     description:
       "The Queen Leech was a mutant leech created through experimentation on annelids with the t-Virus. Created as part of Dr. James Marcus' ongoing leech study, it was his final creation before his death. In the time after, it consumed his hippocampus and gained his memories.",
-    Models: [
+    models: [
       {
         id: '9f23d5d81a3c987cd46a5fff909ddc13',
         codeName: 'Queen Leech',
@@ -315,17 +315,20 @@ export const Projects: IProject[] = [
         characteristics:
           "The Queen Leech was created in 1988 in a laboratory adjacent to Umbrella's executive training school in the Arklay Mountains. When Dr. Marcus was assassinated by the Umbrella Security Service, Queen Leech was dumped in a nearby treatment plant with his corpse. Seeing his body as a food source, Queen Leech began consuming it, and gained his memories after consuming the brain. It believed itself to be Marcus himself, reborn by divine intervention.",
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/5/59/Queenleech2.png',
+        createdAt: '1995-08-16',
       },
     ],
+    createdAt: '1995-08-15',
   },
   {
     id: '860404716c9df7a4',
     projectName: 'Hunters',
     description:
       '"Hunters" are a group of human-animal hybrids which were genetically engineered as biological weapons.',
-    Models: [
+    models: [
       {
         id: '16df8123ba021ee510992689fdf371f1',
         codeName: 'MA-121',
@@ -336,6 +339,7 @@ export const Projects: IProject[] = [
         massProducted: true,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/2/2a/Hunter.jpg',
+        createdAt: '1995-06-20',
       },
       {
         id: '0f83f51211c45c2e491558944b4d1431',
@@ -347,6 +351,7 @@ export const Projects: IProject[] = [
         massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/0/06/MA-121_Hunter_Beta.jpg',
+        createdAt: '1995-06-16',
       },
       {
         id: '560a60c6f3851287f9a9e1c4fc694107',
@@ -358,15 +363,17 @@ export const Projects: IProject[] = [
         massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/f/fa/RE3_Nemesis_Hunter_Y.jpeg',
+        createdAt: '1995-06-18',
       },
     ],
+    createdAt: '1995-06-15',
   },
   {
     id: '596b9a3ab583856e',
     projectName: 'Tyrant-Project',
     description:
       'The Tyrant is a human bio-weapon created through either a primary t-Virus infection to create a weapon, or the cloning of such specimens, with the intent to be used as super soldiers on the battlefield.',
-    Models: [
+    models: [
       {
         id: '628ffbabf855bee054939b3df1483e0d',
         codeName: 'T-001',
@@ -374,8 +381,10 @@ export const Projects: IProject[] = [
         characteristics:
           'First functional model of Tyrant. Mutations caused an exposed heart and spine, ill-functioning nervous system causing muscle spasms.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/7/73/ProtoTyrant.png',
+        createdAt: '1996-07-16',
       },
       {
         id: '1c04671e8a5be344c47210b6d9e47b2c',
@@ -384,8 +393,10 @@ export const Projects: IProject[] = [
         characteristics:
           'Improved model over the T-001. Mutations only caused an exposed heart.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/8/82/Resident_Evil_1_HD_Tyrant.png',
+        createdAt: '1996-07-17',
       },
       {
         id: '04a11fbf1521cf36395f300ecc76bb70',
@@ -394,8 +405,10 @@ export const Projects: IProject[] = [
         characteristics:
           'Heavily armoured T-011 Tyrant outfitted with cybernetic implants and a multiple-rocket launcher.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/c/cb/TALOS1.jpg',
+        createdAt: '1996-07-18',
       },
       {
         id: '6ea98750abddcd022adb7d3cec871761',
@@ -404,8 +417,10 @@ export const Projects: IProject[] = [
         characteristics:
           'Off-shoot project created following completion of T-001 prioritising cost-effectiveness. Possibly developed on Rockfort Island. A variant was created by the Organisation, resulting in Jabberwock S3, enhanced with t-Veronica Virus.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/8/80/Bandersnatcher.png',
+        createdAt: '1996-07-19',
       },
       {
         id: '6a7a0b44c2833d91bfd3a2b14348945a',
@@ -417,6 +432,7 @@ export const Projects: IProject[] = [
         massProducted: true,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/1/1e/Re2_tyrant.jpg',
+        createdAt: '1996-07-20',
       },
       {
         id: '936055108ff4af04692bb1213925f645',
@@ -425,8 +441,10 @@ export const Projects: IProject[] = [
         characteristics:
           'Experimental T-103 used to test the functionality of the model without a limiter coat. Modified with blunted claws and missing an arm. Released on Rockfort Island.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/2/2f/RECV_Tyrant_artwork.png',
+        createdAt: '1996-07-21',
       },
       {
         id: '9eb6546a4e56c4fe47b2904c6d6a0502',
@@ -435,8 +453,10 @@ export const Projects: IProject[] = [
         characteristics:
           'Experimental T-103 variant created by implanting an NE-α Type parasite into several T-103 host bodies. One was deployed to Raccoon City with orders to search and kill any surviving S.T.A.R.S. members to prove its hunting capabilities.',
         experimentalType: true,
+        massProducted: false,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/b/b2/Nemesis-T_Type.png',
+        createdAt: '1996-07-22',
       },
       {
         id: 'eb6b152e50fc2f34c9b64903595b01b3',
@@ -448,7 +468,9 @@ export const Projects: IProject[] = [
         massProducted: true,
         imgUrl:
           'https://static.wikia.nocookie.net/residentevil/images/9/9c/Ivan.JPG',
+        createdAt: '1998-11-23',
       },
     ],
+    createdAt: '1996-07-25',
   },
 ];

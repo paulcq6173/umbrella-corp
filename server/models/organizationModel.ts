@@ -2,7 +2,7 @@ import { IEmployeeSchema } from '@/@types/types';
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const employeeSchema = new Schema({
+const employeeSchema = new Schema<IEmployeeSchema>({
   organizationName: {
     type: String,
     required: true,
@@ -43,12 +43,12 @@ const employeeSchema = new Schema({
     },
   },
   createdAt: {
-    type: Date,
+    type: String,
     required: [true, 'createdAt is null'],
     minlength: [8, 'Must be at least 8, got {VALUE}'],
   },
   updatedAt: {
-    type: Date,
+    type: String,
     minlength: [8, 'Must be at least 8, got {VALUE}'],
   },
 });

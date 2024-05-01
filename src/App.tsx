@@ -32,7 +32,7 @@ function App() {
         <Route path="/security" element={<SecurityPage />} />
         <Route path="/security/archives" element={<Archives />} />
         <Route path="/security/archives/:id" element={<Archive />} />
-        <Route path="/security/project/:id" element={<ProjectPage />} />
+        <Route path="/security/projects/:id" element={<ProjectPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
