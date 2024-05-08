@@ -1,5 +1,5 @@
 import { IDocument } from '@/@types/types';
-import TopMessageBoard from '@/components/TopMessageBoard';
+import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
 import { Docs } from '@/dummyData';
 import { Link } from 'react-router-dom';
 

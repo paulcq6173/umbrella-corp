@@ -1,5 +1,5 @@
 import { IMedicineSchema } from '@/@types/types';
-import Medicine from '@server/models/medicineModel';
+import Product from '@server/models/productModel';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
@@ -9,18 +9,18 @@ const typeDef = `
     slogan: String
     imgUrl: String!
     description: String!
-    info: medicineInfoInput!
+    info: productInfoInput!
     genre: String!
     listPrice: Int!
     ratings: Int
-  ):Medicine
+  ):Product
 `;
 
 const resolver = async (_root: string, args: IMedicineSchema) => {
   let newProduct;
 
   try {
-    newProduct = new Medicine({
+    newProduct = new Product({
       ...args,
       createdAt: new Date().toLocaleString(),
     });

@@ -5,7 +5,9 @@ import HomePage from '@/pages/Home';
 import ProductPage from '@/pages/ProductPage';
 import SignIn from '@/pages/SighIn';
 import SignUp from '@/pages/SignUp';
-import { Route, Routes } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { tokenVar } from './apollo-cache/cache';
 import './main.css';
 import Archive from './pages/Archive';
 import Archives from './pages/Archives';
@@ -17,6 +19,15 @@ import SearchResultPage from './pages/SearchResult';
 import SecurityPage from './pages/Security';
 
 function App() {
+  const token = useReactiveVar(tokenVar);
+  const AuthCheck = ({ Target }: { Target: JSX.Element }) => {
+    if (token) {
+      return Target;
+    }
+
+    return <Navigate to="/" replace={true} />;
+  };
+
   return (
     <div className="w-screen h-screen">
       <TopNaviBar />
@@ -29,10 +40,22 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/materials" element={<Materials />} />
         <Route path="/recruitment" element={<RecruitmentPage />} />
-        <Route path="/security" element={<SecurityPage />} />
-        <Route path="/security/archives" element={<Archives />} />
-        <Route path="/security/archives/:id" element={<Archive />} />
-        <Route path="/security/projects/:id" element={<ProjectPage />} />
+        <Route
+          path="/security"
+          element={<AuthCheck Target={<SecurityPage />} />}
+        />
+        <Route
+          path="/security/archives"
+          element={<AuthCheck Target={<Archives />} />}
+        />
+        <Route
+          path="/security/archives/:id"
+          element={<AuthCheck Target={<Archive />} />}
+        />
+        <Route
+          path="/security/projects/:id"
+          element={<AuthCheck Target={<ProjectPage />} />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

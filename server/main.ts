@@ -17,6 +17,9 @@ const app: Express = express();
 
 // get the port from env variable
 const API_PORT = import.meta.env.VITE_PORT || 5000;
+const devUrl = import.meta.env.VITE_DEV_URL
+  ? import.meta.env.VITE_DEV_URL
+  : null;
 const remoteUrl = import.meta.env.VITE_REMOTE_URL
   ? import.meta.env.VITE_REMOTE_URL
   : null;
@@ -52,7 +55,7 @@ app.use('/', express.static('dist'));
 app.use(
   '/graphql',
   cors<cors.CorsRequest>({
-    origin: [remoteUrl, 'https://studio.apollographql.com'],
+    origin: [devUrl, remoteUrl, 'https://studio.apollographql.com'],
   }),
   expressMiddleware(apolloServer, {
     context: async ({ req }: { req: Request }) => ({

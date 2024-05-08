@@ -1,11 +1,12 @@
-import { TProduct } from '@/@types/types';
 import { SendNotify } from '@/components/NotifyHandler';
 import ProductCard from '@/components/ProductCard';
-import { GET_PRODUCTS } from '@/graphql/queries';
+import LoadingScreen from '@/components/UmSysCtrl/LoadingScreen';
+import NoDataFound from '@/components/UmSysCtrl/NoDataFound';
+import { GetAllProductsQueryDocument } from '@/gql/graphql';
 import { useQuery } from '@apollo/client';
 
 const SearchResultPage = () => {
-  const { data, loading } = useQuery(GET_PRODUCTS, {
+  const { data, loading } = useQuery(GetAllProductsQueryDocument, {
     fetchPolicy: 'cache-and-network',
     onError: (error) => {
       SendNotify({ message: error.message });
@@ -13,22 +14,14 @@ const SearchResultPage = () => {
   });
 
   if (loading) {
-    return (
-      <div className="bg-white dark:bg-gray-800">
-        <p className="text-red-600 font-bold text-center">Loading</p>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
-  if (!data.allProducts) {
-    return (
-      <div className="bg-white dark:bg-gray-800 h-48">
-        <p className="text-red-600 font-bold text-center">No data</p>
-      </div>
-    );
+  if (!data) {
+    return <NoDataFound />;
   }
 
-  const allProducts: Array<TProduct> = data.allProducts;
+  const productEdges = data?.allProducts?.edges;
 
   return (
     <div className="w-screen bg-white dark:bg-gray-800">
@@ -37,9 +30,11 @@ const SearchResultPage = () => {
           All Popular Products
         </h1>
         <div className="bg-gray-400 dark:bg-gray-600 pt-1 pb-1 flex flex-col gap-1">
-          {allProducts.map((item, index) => (
-            <ProductCard key={index} item={item} />
-          ))}
+          {productEdges &&
+            productEdges.map(
+              (e, i) =>
+                e?.node && <ProductCard key={`product-${i}`} item={e.node} />
+            )}
         </div>
       </div>
     </div>

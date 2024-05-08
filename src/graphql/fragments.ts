@@ -1,45 +1,64 @@
-export const FRAG_PRODUCT = `
-    fragment productFields on Medicine {
-        gtin
-        name
-        genre
-        listPrice
-        imgUrl
-        info {
-          manufacturer
-          pulishedDate
-        }
-        description
-        slogan
-        ratings
-    }
-`;
+import { graphql } from '@/gql';
 
-export const FRAG_BOW = `
-    fragment bowFields on BOW {
-        codeName
-        version
-        based
-        height
-        mass
-        createdVia
-        characteristics
-        experimentalType
-        massProducted
-        imgUrl
+export const ProductFragment = graphql(`
+  fragment productFields on Product {
+    gtin
+    name
+    genre
+    listPrice
+    imgUrl
+    info {
+      manufacturer
+      pulishedDate
     }
-`;
+    description
+    slogan
+    ratings
+  }
+`);
 
-export const FRAG_PROJECT = `
-    ${FRAG_BOW}
-    fragment projectFields on BOWProject {
-        id
-        projectName
-        description
-        models {
-            ...bowFields
-        }
-        createdAt
-        updatedAt
+export const BOWFragment = graphql(`
+  fragment bowFields on BOW {
+    codeName
+    version
+    based
+    height
+    mass
+    createdVia
+    characteristics
+    experimentalType
+    massProducted
+    imgUrl
+  }
+`);
+
+export const ProjectFragment = graphql(`
+  fragment projectFields on BOWProject {
+    id
+    projectName
+    description
+    models {
+      codeName
+      version
+      based
+      height
+      mass
+      createdVia
+      characteristics
+      experimentalType
+      massProducted
+      imgUrl
     }
-`;
+    createdAt
+    updatedAt
+  }
+`);
+
+export const PageInfoFragment = graphql(`
+  fragment pageInfoFields on PageInfo {
+    startCursor
+    hasPreviousPage
+    hasNextPage
+    endCursor
+  }
+`);

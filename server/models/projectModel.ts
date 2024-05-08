@@ -1,8 +1,9 @@
-import { IProjectSchema } from '@/@types/types';
-import { Schema, model } from 'mongoose';
+import { IProjectDocument } from '@/@types/types';
+import mongoose, { Schema, model } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const projectSchema = new Schema<IProjectSchema>({
+const projectSchema = new Schema<IProjectDocument>({
   projectName: {
     type: String,
     required: [true, 'Project must be given a name'],
@@ -11,7 +12,7 @@ const projectSchema = new Schema<IProjectSchema>({
     type: String,
     required: [true, 'Project description field must not be blank'],
   },
-  models: [{ type: Schema.Types.ObjectId, ref: 'BOW' }],
+  models: [{ type: Schema.Types.ObjectId, ref: 'BOWs' }],
   createdAt: {
     type: String,
     required: [true, 'createdAt is null'],
@@ -31,6 +32,10 @@ projectSchema.set('toJSON', {
   },
 });
 
+projectSchema.plugin(paginate);
 projectSchema.plugin(uniqueValidator);
 
-export default model<IProjectSchema>('Project', projectSchema);
+export default model<
+  IProjectDocument,
+  mongoose.PaginateModel<IProjectDocument>
+>('Projects', projectSchema, 'projects');

@@ -1,9 +1,7 @@
 import { IProject } from '@/@types/types';
 
-const OrderedByOption = (
-  array: Array<IProject>,
-  option: string
-): Array<IProject> => {
+const OrderedByOption = (projects: Array<IProject>, option: string) => {
+  const array = projects;
   let sortedArray;
 
   if (option === 'DATE_DESC') {

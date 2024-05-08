@@ -1,11 +1,12 @@
-import { IUserSchema } from '@/@types/types';
-import { Schema, model } from 'mongoose';
+import { IUserDocument } from '@/@types/types';
+import { PaginateModel, Schema, model } from 'mongoose';
 // a plugin which adds pre-save validation for unique fields
 // within a Mongoose schema.
+import paginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
 // refers https://mongoosejs.com/docs/typescript.html
-const userSchema = new Schema<IUserSchema>({
+const userSchema = new Schema<IUserDocument>({
   username: {
     type: String,
     required: [true, 'username field is blank'],
@@ -21,7 +22,7 @@ const userSchema = new Schema<IUserSchema>({
     unique: true,
   },
   // For schema definition
-  organization: { type: Schema.Types.ObjectId, ref: 'Organization' },
+  organization: { type: Schema.Types.ObjectId, ref: 'Organizations' },
   createdAt: {
     type: String,
     required: [true, 'createdAt is null'],
@@ -43,6 +44,13 @@ userSchema.set('toJSON', {
   },
 });
 
+// Mongoose doesn't support multi-plugin added at once.
+userSchema.plugin(paginate);
 userSchema.plugin(uniqueValidator);
 
-export default model<IUserSchema>('User', userSchema);
+// Must match Collection name, otherwise you will find nothing.
+export default model<IUserDocument, PaginateModel<IUserDocument>>(
+  'Users',
+  userSchema,
+  'users'
+);

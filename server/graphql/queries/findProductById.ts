@@ -1,30 +1,37 @@
-import Product from '@server/models/medicineModel';
+import Product from '@server/models/productModel';
 import { GraphQLError } from 'graphql';
 
-const typeDef = `
-findProductById(gtin: String):Medicine
+export const typeDefs = `
+  extend type Query {
+    """
+    Returns product by an id.
+    """
+    findProductById(id: ID!): Product
+  }
 `;
 
-const resolver = async (_root: string, args: { gtin: string }) => {
-  const { gtin } = args;
-  let result;
+export const resolver = async (_root: string, args: { id: string }) => {
+  let response;
+
+  const options = { pagination: false };
 
   try {
-    if (gtin) {
-      result = await Product.findOne({ gtin });
-    }
+    response = await Product.paginate({ gtin: args.id }, options);
   } catch (error) {
-    throw new GraphQLError('GRAPHQL_VALIDATION_FAILED', {
-      extensions: {
-        code: 'BAD_USER_INPUT',
-      },
-    });
+    if (error instanceof Error) {
+      throw new GraphQLError(error.message, {
+        extensions: {
+          code: 'GRAPHQL_VALIDATION_FAILED',
+        },
+      });
+    }
+    throw new Error('Unexpected Error occured when query the product');
   }
 
-  return result;
+  return response.docs[0];
 };
 
 export default {
-  typeDef,
+  typeDefs,
   resolver,
 };

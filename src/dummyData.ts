@@ -1,4 +1,4 @@
-import { IDocument, IFounder, IProject, TProduct } from './@types/types';
+import { IDocument, IFounder, TProduct } from './@types/types';
 
 export const Founders: IFounder[] = [
   {
@@ -280,7 +280,7 @@ export const Products: Array<TProduct> = [
   },
 ];
 
-export const Projects: Array<IProject> = [
+/*export const Projects: Array<IProject> = [
   {
     id: '7f1a21c6c8d5065f',
     projectName: 'Cerberus',
@@ -473,4 +473,4 @@ export const Projects: Array<IProject> = [
     ],
     createdAt: '1996-07-25',
   },
-];
+];*/

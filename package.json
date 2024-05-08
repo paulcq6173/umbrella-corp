@@ -10,6 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "tailwindcss": "tailwindcss -i ./src/main.css -o ./src/output.css --watch",
+    "codegen:compile": "graphql-codegen",
+    "codegen:watch": "graphql-codegen -w",
     "cypress:open": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress open",
     "test:e2e": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress run"
   },
@@ -25,6 +27,8 @@
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
+    "mongoose-paginate-v2": "^1.8.0",
+    "npm": "^10.7.0",
     "pnpm": "^9.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -34,6 +38,10 @@
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.5",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.4.1",
     "@tailwindcss/typography": "^0.5.12",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",

@@ -1,8 +1,9 @@
-import { IEmployeeSchema } from '@/@types/types';
-import { Schema, model } from 'mongoose';
+import { IEmployeeDocument } from '@/@types/types';
+import mongoose, { Schema, model } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const employeeSchema = new Schema<IEmployeeSchema>({
+const employeeSchema = new Schema({
   organizationName: {
     type: String,
     required: true,
@@ -61,6 +62,10 @@ employeeSchema.set('toJSON', {
   },
 });
 
+employeeSchema.plugin(paginate);
 employeeSchema.plugin(uniqueValidator);
 
-export default model<IEmployeeSchema>('Organization', employeeSchema);
+export default model<
+  IEmployeeDocument,
+  mongoose.PaginateModel<IEmployeeDocument>
+>('Organizations', employeeSchema, 'organizations');

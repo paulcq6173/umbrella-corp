@@ -1,6 +1,6 @@
-import { IEModel } from '@/@types/types';
+import { BOWProps } from '@/@types/types';
 
-const ProjectModel = ({ model }: { model: IEModel }) => {
+const ProjectModel = ({ model }: { model: BOWProps }) => {
   const {
     codeName,
     version,

@@ -1,4 +1,6 @@
 import createBOW from '@server/graphql/mutations/createBOW';
+import findProductById from '@server/graphql/queries/findProductById';
+import OrderDirections from './enums/OrderDirections';
 import createProduct from './mutations/createProduct';
 import createProject from './mutations/createProject';
 import createUser from './mutations/createUser';
@@ -7,28 +9,15 @@ import login from './mutations/login';
 import updateUser from './mutations/updateUser';
 import allProducts from './queries/allProducts';
 import allProjects from './queries/allProjects';
-import findProductById from './queries/findProductById';
-import findProductsByName from './queries/findProductsByName';
+import allUsers from './queries/allUsers';
 import findProjectById from './queries/findProjectById';
+import PageInfo from './types/PageInfo';
+import Product from './types/Product';
+import ProductConnection from './types/ProductConnection';
+import User from './types/User';
+import UserConnection from './types/UserConnection';
 
 const typeDefs = `
-  type MedicineInfo {
-    pulishedDate: String!
-    manufacturer: String!
-  }
-
-  type Medicine {
-    gtin: String!
-    name: String!
-    slogan: String
-    imgUrl: String!
-    description: String!
-    info: MedicineInfo!
-    genre: String!
-    listPrice: Int!
-    ratings: Int
-  }
-
   type BOWProject {
     id: ID!
     projectName: String!
@@ -66,32 +55,31 @@ const typeDefs = `
     securityLevel: String!
   }
 
-  type User {
-    username: String!
-    email: String
-    phone: String
-    fullName: String
-    id: ID!
-  }
-
   type Token {
     value: String!
   }
+
+  ${User.typeDefs}
+  ${UserConnection.typeDefs}
+  ${Product.typeDefs}
+  ${ProductConnection.typeDefs}
+  ${PageInfo.typeDefs}
+  ${OrderDirections.typeDefs}
 
   type Query {
     projectCount: Int
     bowCount: Int
     userCount: Int
-    ${allProducts.typeDef}
-    ${findProductById.typeDef}
-    ${findProductsByName.typeDef}
-    ${allProjects.typeDef}
     ${findProjectById.typeDef}
-    allUsers: [User]
     findUser(id: ID!): User
     findEmployee(employeeName: String!): Employee
     me: User
   }
+
+  ${allUsers.typeDefs}
+  ${allProducts.typeDefs}
+  ${findProductById.typeDefs}
+  ${allProjects.typeDef}
 
   input UmIDCardInput {
     cardNumber: Int!
@@ -107,7 +95,7 @@ const typeDefs = `
     idCard: UmIDCardInput
   }
 
-  input medicineInfoInput {
+  input productInfoInput {
     pulishedDate: String!
     manufacturer: String!
   }

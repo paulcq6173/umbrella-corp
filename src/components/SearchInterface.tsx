@@ -1,5 +1,4 @@
-import useField from '@/hooks/useField';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 
 const SearchInterface = ({
   sortOption,
@@ -8,7 +7,7 @@ const SearchInterface = ({
   sortOption: string;
   setSortOption: Dispatch<SetStateAction<string>>;
 }) => {
-  const useSearch = useField('search');
+  const useSearch = useRef<string>('');
 
   return (
     <div className="w-full pl-2">
@@ -51,7 +50,9 @@ const SearchInterface = ({
         <input
           className="peer w-5/6 border-2 rounded-sm border-red-800 focus:border-red-600 outline-none"
           placeholder="type name / title"
-          {...useSearch}
+          type="search"
+          defaultValue={useSearch.current}
+          onChange={({ target }) => (useSearch.current = target.value)}
         />
       </div>
     </div>

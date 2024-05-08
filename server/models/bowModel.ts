@@ -1,7 +1,8 @@
-import { IBOWSchema } from '@/@types/types';
-import { Schema, model } from 'mongoose';
+import { IBowModelDocument } from '@/@types/types';
+import mongoose, { Schema, model } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
-const bowModelSchema = new Schema<IBOWSchema>({
+const bowModelSchema = new Schema({
   codeName: {
     type: String,
     required: [true, 'code name field is blank'],
@@ -44,4 +45,9 @@ bowModelSchema.set('toJSON', {
   },
 });
 
-export default model<IBOWSchema>('BOW', bowModelSchema);
+bowModelSchema.plugin(paginate);
+
+export default model<
+  IBowModelDocument,
+  mongoose.PaginateModel<IBowModelDocument>
+>('BOWs', bowModelSchema, 'bows');

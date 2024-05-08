@@ -28,6 +28,6 @@ function connectToDB() {
 }
 
 // Debug config
-//mongoose.set('debug', true);
+//mongoose.set('debug', false);
 
 export default connectToDB;

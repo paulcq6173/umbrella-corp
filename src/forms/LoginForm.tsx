@@ -1,20 +1,20 @@
 import { tokenVar } from '@/apollo-cache/cache';
 import NotifyHandler, { SendNotify } from '@/components/NotifyHandler';
-import TopMessageBoard from '@/components/TopMessageBoard';
-import UmbrellaLabel from '@/components/UmbrellaLabel';
+import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
+import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import { LOGIN } from '@/graphql/mutations';
-import useField from '@/hooks/useField';
 import { useMutation } from '@apollo/client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const useUsername = useField('username');
-  const usePassword = useField('password');
-  const useIDCard = useField('idCard');
+  const useUsername = useRef<string>('');
+  const usePassword = useRef<string>('');
+  const useIDCard = useRef<string>('');
+
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
       SendNotify({ message: error.message });
@@ -36,9 +36,14 @@ const LoginForm = () => {
     e.preventDefault();
 
     login({
-      variables: { username: useUsername.value, password: usePassword.value },
+      variables: {
+        username: useUsername.current,
+        password: usePassword.current,
+      },
     });
   };
+
+  console.log('useRef actived.');
 
   return (
     <div className="p-1 flex flex-col gap-1.5 sm:gap-2 z-0">
@@ -57,7 +62,9 @@ const LoginForm = () => {
             <div className="md:pl-2">
               <input
                 className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none drop-shadow-sm"
-                {...useUsername}
+                type="username"
+                defaultValue={useUsername.current}
+                onChange={({ target }) => (useUsername.current = target.value)}
               />
             </div>
           </div>
@@ -68,7 +75,9 @@ const LoginForm = () => {
             <div className="md:pl-2">
               <input
                 className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none w-11/12 drop-shadow-sm"
-                {...usePassword}
+                type="password"
+                defaultValue={usePassword.current}
+                onChange={({ target }) => (usePassword.current = target.value)}
               />
             </div>
           </div>
@@ -80,7 +89,9 @@ const LoginForm = () => {
               <input
                 placeholder="Optional"
                 className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none w-11/12 drop-shadow-sm"
-                {...useIDCard}
+                type="idCard"
+                defaultValue={useIDCard.current}
+                onChange={({ target }) => (useIDCard.current = target.value)}
               />
             </div>
           </div>

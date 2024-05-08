@@ -1,38 +1,30 @@
 import { SendNotify } from '@/components/NotifyHandler';
-import { GET_PRODUCT_BY_GTIN } from '@/graphql/queries';
+import LoadingScreen from '@/components/UmSysCtrl/LoadingScreen';
+import NoDataFound from '@/components/UmSysCtrl/NoDataFound';
+import { FragmentType, getFragmentData } from '@/gql';
+import { GetProductQueryDocument } from '@/gql/graphql';
+import { ProductFragment } from '@/graphql/fragments';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const id = useParams().id || '';
   const { t } = useTranslation();
-  const { data, loading } = useQuery(GET_PRODUCT_BY_GTIN, {
-    variables: { gtin: id },
+  const { data, loading } = useQuery(GetProductQueryDocument, {
+    variables: { productId: id },
     onError: (error) => {
       SendNotify({ message: error.message });
     },
   });
 
-  if (loading) {
-    return (
-      <div className="bg-gray-200 dark:bg-black animate-pulse">
-        <p className="dark:text-white">Loading</p>
-      </div>
-    );
-  }
+  if (loading) return <LoadingScreen />;
 
-  if (!data) {
-    return (
-      <div className="bg-gray-200 dark:bg-black">
-        <p className="dark:text-white">
-          We're sorry, you requested product doesn't exist.
-        </p>
-      </div>
-    );
-  }
+  if (!data || !data.findProductById) return <NoDataFound />;
 
-  const item = data.findProductById;
+  const ProductProps: FragmentType<typeof ProductFragment> =
+    data.findProductById;
+  const item = getFragmentData(ProductFragment, ProductProps);
 
   return (
     <div className="w-screen bg-gray-200 dark:bg-slate-400">

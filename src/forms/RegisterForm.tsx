@@ -1,13 +1,13 @@
 import NotifyHandler from '@/components/NotifyHandler';
-import TopMessageBoard from '@/components/TopMessageBoard';
-import UmbrellaLabel from '@/components/UmbrellaLabel';
-import useField from '@/hooks/useField';
+import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
+import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
-  const useUsername = useField('username');
-  const usePassword = useField('password');
+  const useUsername = useRef<string>('');
+  const usePassword = useRef<string>('');
 
   const submitRegister: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -33,7 +33,9 @@ const RegisterForm = () => {
             <div className="md:pl-2">
               <input
                 className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none drop-shadow-sm"
-                {...useUsername}
+                type="username"
+                defaultValue={useUsername.current}
+                onChange={({ target }) => (useUsername.current = target.value)}
               />
             </div>
           </div>
@@ -44,7 +46,9 @@ const RegisterForm = () => {
             <div className="md:pl-2">
               <input
                 className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none w-11/12 drop-shadow-sm"
-                {...usePassword}
+                type="password"
+                defaultValue={usePassword.current}
+                onChange={({ target }) => (usePassword.current = target.value)}
               />
             </div>
           </div>

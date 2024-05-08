@@ -1,6 +1,6 @@
 import ToggleTheme from '@/components/ToggleTheme';
 import TopNaviButton from '@/components/TopNaviBar/TopNaviButton';
-import UmbrellaLabel from '@/components/UmbrellaLabel';
+import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import MobileTopNaviBar from '@/mobile/components/MobileTopNaviBar';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,7 @@ const TopNaviBar = () => {
   return (
     <div className="w-screen flex flex-col bg-stone-200 text-center dark:bg-black dark:text-white">
       <div className="flex gap-1.5 justify-center items-center italic text-sm font-medium text-white dark:text-white">
-        <Link className="w-24 block bg-black italic" to="/">
+        <Link className="w-24 block bg-gray-200 dark:bg-black italic" to="/">
           <UmbrellaLabel title="Umbrella" />
         </Link>
         <TopNaviButton labelValue="HotProducts" path="/products/search" />

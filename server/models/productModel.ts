@@ -1,8 +1,9 @@
-import { IMedicineSchema } from '@/@types/types';
-import { Schema, model } from 'mongoose';
+import { IMedicineDocument } from '@/@types/types';
+import mongoose, { Schema, model } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const medicineSchema = new Schema<IMedicineSchema>({
+const medicineSchema = new Schema<IMedicineDocument>({
   gtin: {
     type: String,
     required: [true, 'gtin is required'],
@@ -58,6 +59,10 @@ medicineSchema.set('toJSON', {
   },
 });
 
+medicineSchema.plugin(paginate);
 medicineSchema.plugin(uniqueValidator);
 
-export default model<IMedicineSchema>('Medicine', medicineSchema);
+export default model<
+  IMedicineDocument,
+  mongoose.PaginateModel<IMedicineDocument>
+>('Medicines', medicineSchema, 'medicines');

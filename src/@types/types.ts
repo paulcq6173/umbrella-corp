@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 // Define omit type for unions
 // Refer to https://github.com/microsoft/TypeScript/issues/42680
@@ -44,15 +44,13 @@ export interface IDocument {
   date: string;
 }
 
-export interface IEModel extends IBOWSchema {
-  id: string;
-}
+export interface BOWProps extends UnionOmit<IBOWSchema, 'createdAt'> {}
 
 export interface IProject extends IBaseDate {
   id: string;
   projectName: string;
   description: string;
-  models: Array<IEModel>;
+  models: Array<BOWProps>;
 }
 
 //======================= Back-end =======================
@@ -72,7 +70,6 @@ export interface IUserSchema extends IBaseUser {
   passwordHash: string;
   // Use `Types.ObjectId` in document interface
   organization?: Types.ObjectId;
-  id: string;
 }
 
 export interface IEmployeeSchema extends IBaseDate {
@@ -111,18 +108,26 @@ export interface IProjectSchema extends IBaseDate {
 export interface IBOWSchema extends IBaseDate {
   codeName: string;
   version: string;
-  based?: Array<string>;
-  height?: string;
-  mass?: string;
-  createdVia?: Array<string>;
+  based?: Array<string | null> | null;
+  height?: string | null;
+  mass?: string | null;
+  createdVia?: Array<string | null> | null;
   characteristics: string;
   experimentalType: boolean;
   massProducted: boolean;
   imgUrl: string;
 }
 
+// For Mongoose pagination v2 plugin
+export interface IUserDocument extends mongoose.Document, IUserSchema {}
+export interface IProjectDocument extends mongoose.Document, IProjectSchema {}
+export interface IEmployeeDocument extends mongoose.Document, IEmployeeSchema {}
+export interface IMedicineDocument extends mongoose.Document, IMedicineSchema {}
+export interface IBowModelDocument extends mongoose.Document, IBOWSchema {}
+
 export interface IUpdateUserInfo
   extends UnionOmit<IUserSchema, 'username' | 'passwordHash'> {
+  id: string;
   password: string;
 }
 
