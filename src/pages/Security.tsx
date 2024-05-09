@@ -50,9 +50,9 @@ const SecurityPage = () => {
             {t('System.CTRL', { ns: 'umbrellaSecurity' })}
           </h2>
           <span className="text-black italic">
-            For other documents, visit
+            {`For other documents, visit `}
             <Link className="text-orange-600" to="/security/archives">
-              "archives"
+              archives
             </Link>
             .
           </span>

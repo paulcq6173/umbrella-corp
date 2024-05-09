@@ -1,6 +1,7 @@
 import { IEmployeeSchema, IServerContext } from '@/@types/types';
 import Organization from '@server/models/organizationModel';
 import User from '@server/models/userModel';
+import AuthencationValidator from '@server/utils/AuthencationValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
@@ -12,14 +13,7 @@ const resolver = async (
   args: { content: IEmployeeSchema },
   { currentUser }: IServerContext
 ) => {
-  // Validated user allowed only
-  if (!currentUser) {
-    throw new GraphQLError('not authenticated', {
-      extensions: {
-        code: 'GRAPHQL_VALIDATION_FAILED',
-      },
-    });
-  }
+  if (!AuthencationValidator(currentUser)) return;
 
   const { organizationName, employeeName, employeeNumber, sex, unit, idCard } =
     args.content;

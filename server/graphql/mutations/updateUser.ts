@@ -1,5 +1,6 @@
 import { IServerContext, IUpdateUserInfo } from '@/@types/types';
 import User from '@server/models/userModel';
+import AuthencationValidator from '@server/utils/AuthencationValidator';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
 
@@ -18,14 +19,7 @@ const resolver = async (
   args: IUpdateUserInfo,
   { currentUser }: IServerContext
 ) => {
-  // Validated user allowed only
-  if (!currentUser) {
-    throw new GraphQLError('not authenticated', {
-      extensions: {
-        code: 'GRAPHQL_VALIDATION_FAILED',
-      },
-    });
-  }
+  if (!AuthencationValidator(currentUser)) return;
 
   const { id, email, phone, password, fullName } = args;
   let updatedUser: IUpdateUserInfo;
@@ -43,14 +37,6 @@ const resolver = async (
     }
 
     if (password) {
-      /*if (!passwordValidator(password)) {
-          throw new GraphQLError('Password must atleast be 4 characters', {
-            extensions: {
-              code: 'BAD_USER_INPUT',
-            },
-          });
-        }*/
-
       foundUser.passwordHash = await bcrypt.hash(password, 10);
     }
 
@@ -60,7 +46,7 @@ const resolver = async (
 
     await foundUser.save();
 
-    updatedUser = await foundUser.populate('Organization');
+    updatedUser = await foundUser.populate('Organizations');
   } catch (error) {
     throw new GraphQLError('Invalid argument value', {
       extensions: {

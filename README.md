@@ -6,13 +6,13 @@ This is an ongoing project.
 
 ## Features
 
-．Responsive Web Design.
-．Light / Dark mode button on top navigation bar.
-．Using graphql-codegen libraries for building GraphQL client.
-．Cursor-based Pagination for better performance.
+．Responsive Web Design.\n
+．Light / Dark mode button on top navigation bar.\n
+．Using graphql-codegen libraries for building GraphQL client.\n
+．Cursor-based Pagination for better performance.\n
 
 ## Services
 
-．Log in and out.
-．Browse popular products.
-．Search lab data (For researcher accounts only).
+．Log in and out.\n
+．Browse popular products.\n
+．Search lab data (For researcher accounts only).\n

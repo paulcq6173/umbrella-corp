@@ -43,8 +43,6 @@ const LoginForm = () => {
     });
   };
 
-  console.log('useRef actived.');
-
   return (
     <div className="p-1 flex flex-col gap-1.5 sm:gap-2 z-0">
       <TopMessageBoard />

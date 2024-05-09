@@ -21,9 +21,15 @@ const NotifyHandler = () => {
     return null;
   }
 
-  const textColor = success ? 'text-green-600' : 'text-red-600';
+  const color = success ? 'green-600' : 'red-600';
 
-  return <div className={`text-sm sm:text-base ${textColor}`}>{message}</div>;
+  return (
+    <div
+      className={`w-6/7 m-1 border-2 border-${color} bg-gray-400 text-sm sm:text-base text-${color}`}
+    >
+      {message}
+    </div>
+  );
 };
 
 export default NotifyHandler;

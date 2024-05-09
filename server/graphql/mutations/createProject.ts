@@ -1,5 +1,6 @@
-import { ICreateProject, IProjectSchema } from '@/@types/types';
+import { ICreateProject, IProjectSchema, IServerContext } from '@/@types/types';
 import Project from '@server/models/projectModel';
+import AuthencationValidator from '@server/utils/AuthencationValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
@@ -9,7 +10,13 @@ const typeDef = `
   ): BOWProject
 `;
 
-const resolver = async (_root: unknown, args: ICreateProject) => {
+const resolver = async (
+  _root: unknown,
+  args: ICreateProject,
+  { currentUser }: IServerContext
+) => {
+  if (!AuthencationValidator(currentUser)) return;
+
   const { projectName } = args;
 
   const foundProject: IProjectSchema | null = await Project.findOne({

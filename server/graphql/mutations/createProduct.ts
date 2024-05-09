@@ -1,5 +1,6 @@
-import { IMedicineSchema } from '@/@types/types';
+import { IMedicineSchema, IServerContext } from '@/@types/types';
 import Product from '@server/models/productModel';
+import AuthencationValidator from '@server/utils/AuthencationValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
@@ -11,12 +12,18 @@ const typeDef = `
     description: String!
     info: productInfoInput!
     genre: String!
-    listPrice: Int!
-    ratings: Int
+    listPrice: Float!
+    ratings: Float
   ):Product
 `;
 
-const resolver = async (_root: string, args: IMedicineSchema) => {
+const resolver = async (
+  _root: string,
+  args: IMedicineSchema,
+  { currentUser }: IServerContext
+) => {
+  if (!AuthencationValidator(currentUser)) return;
+
   let newProduct;
 
   try {

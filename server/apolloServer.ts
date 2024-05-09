@@ -1,7 +1,6 @@
 import { IServerContext } from '@/@types/types';
-import logger from '@/utils/logger';
 import { ApolloServer } from '@apollo/server';
-import { GraphQLError, GraphQLSchema } from 'graphql';
+import { GraphQLSchema } from 'graphql';
 import http from 'http';
 
 // create a GraphQL.js GraphQLSchema instance from GraphQL schema
@@ -9,28 +8,9 @@ import http from 'http';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import resolvers from './graphql/resolvers';
-import typeDefs from './graphql/schema';
-
-const apolloErrorFormatter = (error: unknown) => {
-  let normalizedError;
-  let message = 'Unexpected Error occured';
-
-  if (error instanceof Error) {
-    logger.error(error.message);
-    message = error.message;
-  }
-
-  if (error instanceof GraphQLError) {
-    normalizedError = error;
-  } else {
-    normalizedError = new GraphQLError(message, {
-      extensions: { code: 'INTERNAL_SERVER_ERROR' },
-    });
-  }
-
-  return normalizedError;
-};
+import apolloErrorFormatter from '@server/apolloErrorFormatter';
+import resolvers from '@server/graphql/resolvers';
+import typeDefs from '@server/graphql/schema';
 
 /**
  * @see https://the-guild.dev/graphql/tools/docs/generate-schema
@@ -51,6 +31,9 @@ const createApolloServer = (
 ) => {
   return new ApolloServer<IServerContext>({
     schema,
+    // Refer to https://www.apollographql.com/docs/apollo-server/data/errors/
+    // For client responses, set a formatError hook that is
+    // run on each error before it's passed back to the client.
     formatError: apolloErrorFormatter,
     // Initialization as before, plus the drain plugin
     // for our httpServer.

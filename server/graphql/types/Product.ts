@@ -12,8 +12,8 @@ const typeDefs = `
     description: String!
     info: ProductInfo!
     genre: String!
-    listPrice: Int!
-    ratings: Int
+    listPrice: Float!
+    ratings: Float
   }
 `;
 
