@@ -50,7 +50,7 @@ const getCurUser = async (req: Request) => {
 // express json-parser
 app.use(express.json());
 
-//app.use('/', express.static('dist'));
+app.use('/', express.static('dist'));
 
 app.use(
   '/graphql',
