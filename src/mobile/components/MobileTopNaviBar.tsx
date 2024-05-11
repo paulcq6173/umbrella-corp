@@ -1,4 +1,5 @@
 import Flexible from '@/components/TopNaviBar/Flexible';
+import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -8,8 +9,11 @@ const MobileTopNaviBar = () => {
   return (
     <div className="w-screen flex flex-col bg-gray-200 text-center dark:bg-black dark:text-white">
       <div className="h-10 sm:h-12 flex gap-1 sm:w-1/2 sm:m-auto items-center text-sm font-medium text-white dark:text-white">
-        <Link className="w-16 sm:w-24 block bg-black" to="/">
-          <img src="https://static.wikia.nocookie.net/residentevil/images/7/72/Umbrella-logo-bd.jpg" />
+        <Link
+          className="w-14 pt-0.5 sm:w-24 text-xs dark:text-white text-black"
+          to="/"
+        >
+          <UmbrellaLabel title="Ub" />
         </Link>
         <Flexible />
         <MobileCollapsedSideBar />

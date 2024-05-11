@@ -1,6 +1,13 @@
+import { Link, useLocation } from 'react-router-dom';
 import NotByAI from './NotByAI';
 
 const Footer = () => {
+  const { pathname } = useLocation();
+
+  if (pathname.includes('security')) {
+    return null;
+  }
+
   return (
     <div className="w-screen h-1/3 sm:h-4/6 bg-gray-600 dark:bg-slate-900">
       <label className="pt-4 flex justify-center">
@@ -8,7 +15,7 @@ const Footer = () => {
       </label>
 
       <div className="flex flex-col gap-4 text-sm text-black">
-        <div className="text-center dark:text-white">
+        <div className="text-center text-amber-400">
           © 1980-2024 <strong>Umbrella Corp & Capcom</strong>. All Rights
           Reserved
         </div>
@@ -29,6 +36,14 @@ const Footer = () => {
               <li className="text-zinc-300">WP Corporation</li>
               <li className="text-green-300">TRICELL Inc.</li>
             </ul>
+          </div>
+          <div>
+            <Link
+              className="italic font-medium text-white"
+              to="/private_policy"
+            >
+              Private Policy
+            </Link>
           </div>
         </div>
       </div>

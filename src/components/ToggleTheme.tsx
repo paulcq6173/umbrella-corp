@@ -26,9 +26,9 @@ const ToggleTheme = () => {
       >
         <div
           className={`w-5 h-5 dark:bg-[#333] bg-white ${
-            mobileMode ? 'dark:translate-x-full' : 'dark:translate-x-full'
+            mobileMode ? 'dark:translate-x-[49px]' : 'dark:translate-x-[49px]'
           } rounded-full transition-all ease-in-out delay-150 duration-300`}
-        ></div>
+        />
       </button>
     </div>
   );

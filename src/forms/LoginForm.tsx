@@ -2,18 +2,18 @@ import { tokenVar } from '@/apollo-cache/cache';
 import NotifyHandler, { SendNotify } from '@/components/NotifyHandler';
 import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
 import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
+import InputBar from '@/forms/InputBar';
 import { LOGIN } from '@/graphql/mutations';
 import { useMutation } from '@apollo/client';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const useUsername = useRef<string>('');
   const usePassword = useRef<string>('');
-  const useIDCard = useRef<string>('');
 
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
@@ -56,46 +56,8 @@ const LoginForm = () => {
           className="md:flex md:flex-col md:space-y-2"
           onSubmit={submitLogin}
         >
-          <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
-            <div className="italic sm:col-span-1 md:text-right">
-              <label>{t('User', { ns: 'umbrellaSecurity' })}</label>
-            </div>
-            <div className="md:pl-2">
-              <input
-                className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none drop-shadow-sm"
-                type="username"
-                defaultValue={useUsername.current}
-                onChange={({ target }) => (useUsername.current = target.value)}
-              />
-            </div>
-          </div>
-          <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
-            <div className="italic sm:col-span-1 md:text-right">
-              <label>{t('Password', { ns: 'umbrellaSecurity' })}</label>
-            </div>
-            <div className="md:pl-2">
-              <input
-                className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none w-11/12 drop-shadow-sm"
-                type="password"
-                defaultValue={usePassword.current}
-                onChange={({ target }) => (usePassword.current = target.value)}
-              />
-            </div>
-          </div>
-          <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
-            <div className="italic sm:col-span-1 md:text-right">
-              <label>{t('IDCard', { ns: 'umbrellaSecurity' })}</label>
-            </div>
-            <div className="md:pl-2">
-              <input
-                placeholder="Optional"
-                className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none w-11/12 drop-shadow-sm"
-                type="idCard"
-                defaultValue={useIDCard.current}
-                onChange={({ target }) => (useIDCard.current = target.value)}
-              />
-            </div>
-          </div>
+          <InputBar label="User" t={t} inputRef={useUsername} />
+          <InputBar label="Password" t={t} inputRef={usePassword} />
           <div className="text-center">
             <button className="w-20 mt-2 mb-2 p-0.5 border-2 rounded-sm border-black bg-red-800 text-white hover:bg-red-600">
               {t('SignIn')}
@@ -103,6 +65,16 @@ const LoginForm = () => {
           </div>
         </form>
         <NotifyHandler />
+        <p className="p-1 text-white">
+          By continuing, you agree to{' '}
+          <Link
+            className="text-red-600 hover:text-red-400"
+            to="/private_policy"
+          >
+            our private policy
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

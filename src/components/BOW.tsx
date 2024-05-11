@@ -20,10 +20,14 @@ const ProjectModel = ({ model }: { model: BOWProps }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 p-1">
           <div className="col-span-1">
             <h1 className="text-red-800">Project / Experimental Code:</h1>
-            <h2 className="dark:text-white">{codeName}</h2>
-            <img src={imgUrl} alt="model photo" />
+            <h2 className="dark:text-amber-400">{codeName}</h2>
+            <img
+              className="border-2 border-transparent rounded-sm p-0.5"
+              src={imgUrl}
+              alt="model photo"
+            />
           </div>
-          <div>
+          <div className="pl-2">
             <p>Model Version: {version}</p>
             <p>ExperimentalType: {experimentalType ? 'true' : 'false'}</p>
             <p>Mass-produced: {massProducted ? 'true' : 'false'}</p>

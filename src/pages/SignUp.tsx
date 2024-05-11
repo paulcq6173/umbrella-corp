@@ -2,7 +2,7 @@ import RegisterForm from '@/forms/RegisterForm';
 
 const SignUpPage = () => {
   return (
-    <div className="w-screen bg-white dark:bg-red-900">
+    <div className="w-screen h-dvh bg-white dark:bg-red-900">
       <RegisterForm />
     </div>
   );
