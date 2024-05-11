@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 const TopMessageBoard = () => {
   const { pathname } = useLocation();
+
   const label = 'Message Board';
   let mesTitle = 'For all new employees:';
   let description = 'Welcome on board!';
@@ -14,6 +15,10 @@ const TopMessageBoard = () => {
     mesTitle = 'All files are properties of umbrella corporation';
     description =
       'Requested file content as following, remember that you are not allowed to copy them:';
+  } else if (pathname.includes('security')) {
+    mesTitle = 'Warning';
+    description =
+      'The following file list contains images of explicit violence and gore. If you are under the legal age, please leave.';
   }
 
   return (

@@ -22,7 +22,7 @@ const resolver = async (
   if (!AuthencationValidator(currentUser)) return;
 
   const { id, email, phone, password, fullName } = args;
-  let updatedUser: IUpdateUserInfo;
+  let updatedUser;
 
   try {
     // full-fledged validation is necessary
@@ -44,9 +44,7 @@ const resolver = async (
     foundUser.phone = phone ? phone : foundUser.phone;
     foundUser.fullName = fullName ? fullName : foundUser.fullName;
 
-    await foundUser.save();
-
-    updatedUser = await foundUser.populate('Organizations');
+    updatedUser = await foundUser.save();
   } catch (error) {
     throw new GraphQLError('Invalid argument value', {
       extensions: {

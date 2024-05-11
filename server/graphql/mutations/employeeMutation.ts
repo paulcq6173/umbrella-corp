@@ -5,7 +5,23 @@ import AuthencationValidator from '@server/utils/AuthencationValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
-  updateOrCreateEmployee(content: updateOrganizationInput): Employee
+  input UmIDCardInput {
+    cardNumber: Int!
+    securityLevel: String!
+  }
+
+  input updateOrganizationInput {
+    organizationName: String
+    employeeName: String!
+    employeeNumber: String
+    sex: String
+    unit: String
+    idCard: UmIDCardInput
+  }
+
+  extend type Mutation {
+    updateOrCreateEmployee(content: updateOrganizationInput): Employee
+  }
 `;
 
 const resolver = async (

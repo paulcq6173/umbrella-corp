@@ -1,13 +1,36 @@
+import { ISortProps } from '@/@types/types';
+import { AllProjectsOrderBy, OrderDirection } from '@/gql/graphql';
+import { debounce } from 'lodash';
 import { Dispatch, SetStateAction, useRef } from 'react';
 
 const SearchInterface = ({
+  keyword,
+  setKeyword,
   sortOption,
   setSortOption,
 }: {
-  sortOption: string;
-  setSortOption: Dispatch<SetStateAction<string>>;
+  keyword: string;
+  setKeyword: Dispatch<SetStateAction<string>>;
+  sortOption: ISortProps;
+  setSortOption: Dispatch<SetStateAction<ISortProps>>;
 }) => {
-  const useSearch = useRef<string>('');
+  const orderByDefault = {
+    column: AllProjectsOrderBy.CreatedAt,
+    direction: OrderDirection.Desc,
+  };
+  const tempRef = useRef<string>('');
+  const debouncedSave = useRef(
+    debounce((value: string) => setKeyword(value), 2000)
+  ).current;
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
+    const { value } = target;
+    tempRef.current = value;
+    // Even though handleChange is created on each render and executed,
+    // it references the same debouncedSave that was created initially.
+    debouncedSave(tempRef.current);
+  };
 
   return (
     <div className="w-full pl-2">
@@ -18,9 +41,13 @@ const SearchInterface = ({
             id="oldest"
             className="peer/oldest"
             type="radio"
-            value="DATE_ASC"
-            checked={sortOption === 'DATE_ASC'}
-            onChange={() => setSortOption('DATE_ASC')}
+            checked={sortOption.direction === OrderDirection.Asc}
+            onChange={() =>
+              setSortOption({
+                ...orderByDefault,
+                direction: OrderDirection.Asc,
+              })
+            }
           />
           <label
             htmlFor="oldest"
@@ -34,9 +61,8 @@ const SearchInterface = ({
             id="latest"
             className="peer/latest"
             type="radio"
-            value="DATE_DESC"
-            checked={sortOption === 'DATE_DESC'}
-            onChange={() => setSortOption('DATE_DESC')}
+            checked={sortOption.direction === OrderDirection.Desc}
+            onChange={() => setSortOption(orderByDefault)}
           />
           <label
             htmlFor="latest"
@@ -51,8 +77,8 @@ const SearchInterface = ({
           className="peer w-5/6 border-2 rounded-sm border-red-800 focus:border-red-600 outline-none"
           placeholder="type name / title"
           type="search"
-          defaultValue={useSearch.current}
-          onChange={({ target }) => (useSearch.current = target.value)}
+          defaultValue={keyword}
+          onChange={handleChange}
         />
       </div>
     </div>

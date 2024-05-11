@@ -1,4 +1,4 @@
-import { IMedicineSchema, IServerContext } from '@/@types/types';
+import { IProductSchema, IServerContext } from '@/@types/types';
 import Product from '@server/models/productModel';
 import AuthencationValidator from '@server/utils/AuthencationValidator';
 import { GraphQLError } from 'graphql';
@@ -19,7 +19,7 @@ const typeDef = `
 
 const resolver = async (
   _root: string,
-  args: IMedicineSchema,
+  args: IProductSchema,
   { currentUser }: IServerContext
 ) => {
   if (!AuthencationValidator(currentUser)) return;

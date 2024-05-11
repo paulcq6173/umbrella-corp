@@ -1,3 +1,4 @@
+import { OrderDirection } from '@/gql/graphql';
 import mongoose, { Types } from 'mongoose';
 
 // Define omit type for unions
@@ -19,7 +20,7 @@ export interface IFounder {
   intro: string;
 }
 
-export type TProduct = UnionOmit<IMedicineSchema, 'createdAt' | 'updatedAt'>;
+export type TProduct = UnionOmit<IProductSchema, 'createdAt' | 'updatedAt'>;
 
 export interface INotify {
   message: string;
@@ -53,6 +54,15 @@ export interface IProject extends IBaseDate {
   models: Array<BOWProps>;
 }
 
+export enum AllProjectsOrderBy {
+  CreatedAt = 'createdAt',
+}
+
+export interface ISortProps {
+  column: AllProjectsOrderBy;
+  direction: OrderDirection;
+}
+
 //======================= Back-end =======================
 interface IBaseUser extends IBaseDate {
   username: string;
@@ -84,7 +94,7 @@ export interface IEmployeeSchema extends IBaseDate {
   };
 }
 
-export interface IMedicineSchema extends IBaseDate {
+export interface IProductSchema extends IBaseDate {
   gtin: string;
   name: string;
   slogan?: string;
@@ -122,7 +132,7 @@ export interface IBOWSchema extends IBaseDate {
 export interface IUserDocument extends mongoose.Document, IUserSchema {}
 export interface IProjectDocument extends mongoose.Document, IProjectSchema {}
 export interface IEmployeeDocument extends mongoose.Document, IEmployeeSchema {}
-export interface IMedicineDocument extends mongoose.Document, IMedicineSchema {}
+export interface IProductDocument extends mongoose.Document, IProductSchema {}
 export interface IBowModelDocument extends mongoose.Document, IBOWSchema {}
 
 export interface IUpdateUserInfo

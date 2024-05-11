@@ -1,8 +1,9 @@
 import Product from '@server/models/productModel';
 import cursorPaginate, {
-  OrderDirection,
   createCursor,
 } from '@server/utils/pagination/cursorPaginate';
+import limitValidator from '@server/utils/pagination/limitValidator';
+import normalizeOrderBy from '@server/utils/pagination/normalizeOrderBy';
 import { GraphQLError } from 'graphql';
 
 const typeDefs = `
@@ -12,6 +13,9 @@ const typeDefs = `
   }
 
   extend type Query {
+    """
+    Returns paginated products.
+    """
     allProducts(
       first: Int
       after: String
@@ -23,9 +27,9 @@ const typeDefs = `
 `;
 
 interface IProductsArgs {
-  first: number;
+  first?: number;
   after?: string;
-  orderDirection?: OrderDirection;
+  orderDirection?: string;
   orderBy?: string;
   searchKeyword?: string;
 }
@@ -33,13 +37,12 @@ interface IProductsArgs {
 // TODO:averageRatings field, enum AllProductsOrderBy not applied
 const resolver = async (_root: string, args: IProductsArgs) => {
   const { first, after, orderDirection, orderBy, searchKeyword } = args;
-
-  if (first < 0) throw new Error('first must be positive');
+  const limit: number = limitValidator(first);
+  const direction: string = normalizeOrderBy(orderDirection);
 
   let response;
-  let sort = {};
+  let sort;
   let query = {};
-  const directionValue = orderDirection === 'asc' ? 'asc' : 'desc';
 
   if (searchKeyword) {
     query = {
@@ -50,46 +53,58 @@ const resolver = async (_root: string, args: IProductsArgs) => {
     };
   }
 
-  if (orderBy !== 'createdAt') {
-    sort = { averageRatings: directionValue };
+  if (orderBy === 'createdAt') {
+    sort = { column: 'createdAt', direction };
   } else {
-    sort = { createdAt: directionValue };
+    sort = { column: 'ratings', direction };
   }
 
-  const options = {
-    limit: first || 10,
-    sort,
+  const options = { limit };
+  const orderOptions = {
+    after: after || '',
   };
 
   try {
     const result = await Product.paginate(query, options);
+    const rawDocs = [...result.docs];
 
-    const docArray = result.docs.map((node) => ({
+    switch (sort.column) {
+      case 'createdAt':
+        if (direction === 'desc') {
+          rawDocs.sort(
+            (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+          );
+        } else {
+          rawDocs.sort(
+            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
+          );
+        }
+        break;
+      case 'averageRatings':
+        if (direction === 'desc') {
+          rawDocs.sort((a, b) => b.ratings - a.ratings);
+        } else {
+          rawDocs.sort((a, b) => a.ratings - b.ratings);
+        }
+        break;
+    }
+
+    const docArray = rawDocs.map((node) => ({
       node,
-      cursor: createCursor(node.createdAt, [
-        {
-          orderDirection:
-            directionValue === 'desc'
-              ? OrderDirection.DESC
-              : OrderDirection.ASC,
-        },
-      ]),
+      cursor: createCursor(node.createdAt),
     }));
-
-    const orderOptions = {
-      after: after || '',
-    };
 
     response = cursorPaginate(result, docArray, orderOptions);
   } catch (error) {
-    if (error instanceof Error) {
-      throw new GraphQLError(error.message, {
-        extensions: {
-          code: 'GRAPHQL_VALIDATION_FAILED',
-        },
-      });
-    }
-    throw new Error('Unexpected Error occured when query all products');
+    const message =
+      error instanceof Error
+        ? error.message
+        : 'Unexpected Error occured when query all products';
+    throw new GraphQLError(message, {
+      extensions: {
+        code: 'GRAPHQL_VALIDATION_FAILED',
+      },
+    });
   }
 
   return response;

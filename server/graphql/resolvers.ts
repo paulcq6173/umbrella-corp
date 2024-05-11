@@ -28,13 +28,10 @@ const resolvers = {
     allUsers: allUsers.resolver,
     findUser: async (_root: string, args: { id: string }) =>
       User.findOne({ _id: args.id }),
-    findEmployee: async (_root: string, args: { employeeName: string }) => {
-      const foundEmployee = await Organization.findOne({
+    findEmployee: async (_root: string, args: { employeeName: string }) =>
+      Organization.findOne({
         employeeName: args.employeeName,
-      });
-
-      return foundEmployee;
-    },
+      }),
     me: async (
       _root: string,
       _args: unknown,

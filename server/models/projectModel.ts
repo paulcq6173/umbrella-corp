@@ -17,6 +17,8 @@ const projectSchema = new Schema<IProjectDocument>({
     type: String,
     required: [true, 'createdAt is null'],
     minlength: [8, 'Must be at least 8, got {VALUE}'],
+    // Declares the index options for this schematype.
+    index: true,
   },
   updatedAt: {
     type: String,

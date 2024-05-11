@@ -1,9 +1,9 @@
-import { IMedicineDocument } from '@/@types/types';
+import { IProductDocument } from '@/@types/types';
 import mongoose, { Schema, model } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const medicineSchema = new Schema<IMedicineDocument>({
+const medicineSchema = new Schema<IProductDocument>({
   gtin: {
     type: String,
     required: [true, 'gtin is required'],
@@ -44,6 +44,8 @@ const medicineSchema = new Schema<IMedicineDocument>({
     type: String,
     required: [true, 'createdAt field is blank'],
     minlength: [8, 'Must be atleast 8, got {VALUE}'],
+    // Declares the index options for this schematype.
+    index: true,
   },
   updatedAt: {
     type: String,
@@ -63,6 +65,6 @@ medicineSchema.plugin(paginate);
 medicineSchema.plugin(uniqueValidator);
 
 export default model<
-  IMedicineDocument,
-  mongoose.PaginateModel<IMedicineDocument>
+  IProductDocument,
+  mongoose.PaginateModel<IProductDocument>
 >('Medicines', medicineSchema, 'medicines');

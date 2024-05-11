@@ -10,10 +10,10 @@ const ProjectCard = ({
   const item = getFragmentData(ProjectFragment, project);
 
   return (
-    <li className="hover:text-red-400 text-center">
-      <h3>{item.projectName}</h3>
+    <li className="text-center">
+      <h3>Project: {item.projectName}</h3>
       <Link className="hover:text-red-400" to={`/security/projects/${item.id}`}>
-        Content
+        File Content
       </Link>
     </li>
   );

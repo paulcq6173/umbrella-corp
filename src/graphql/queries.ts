@@ -13,7 +13,7 @@ export const LOGGED_IN_USER = graphql(`
   }
 `);
 
-export const GET_PRODUCTS = graphql(`
+export const ALL_PRODUCTS = graphql(`
   ${ProductFragment}
   ${PageInfoFragment}
   query getAllProductsQuery(
@@ -54,9 +54,29 @@ export const GET_PRODUCT = graphql(`
 
 export const ALL_PROJECTS = graphql(`
   ${ProjectFragment}
-  query allProjectsQuery {
-    allProjects {
-      ...projectFields
+  query allProjectsQuery(
+    $first: Int
+    $after: String
+    $orderDirection: OrderDirection
+    $orderBy: AllProjectsOrderBy
+    $searchKeyword: String
+  ) {
+    allProjects(
+      first: $first
+      after: $after
+      orderDirection: $orderDirection
+      orderBy: $orderBy
+      searchKeyword: $searchKeyword
+    ) {
+      edges {
+        node {
+          ...projectFields
+        }
+        cursor
+      }
+      pageInfo {
+        ...pageInfoFields
+      }
     }
   }
 `);

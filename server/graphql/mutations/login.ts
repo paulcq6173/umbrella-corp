@@ -1,4 +1,4 @@
-import { IUserDocument, TLoginInfo } from '@/@types/types';
+import { TLoginInfo } from '@/@types/types';
 import User from '@server/models/userModel';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
@@ -13,7 +13,7 @@ login(
 
 const resolver = async (_root: string, args: TLoginInfo) => {
   try {
-    const foundUser: IUserDocument | null = await User.findOne({
+    const foundUser = await User.findOne({
       username: args.username,
     });
 
@@ -51,7 +51,7 @@ const resolver = async (_root: string, args: TLoginInfo) => {
       id: foundUser._id,
     };
 
-    const secret = import.meta.env.VITE_JWT_SEC;
+    const secret: string = import.meta.env.VITE_JWT_SEC;
 
     const token = jwt.sign(payload, secret, { expiresIn: '1d' });
     return { value: token };

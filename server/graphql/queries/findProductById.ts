@@ -13,22 +13,21 @@ export const typeDefs = `
 export const resolver = async (_root: string, args: { id: string }) => {
   let response;
 
-  const options = { pagination: false };
-
   try {
-    response = await Product.paginate({ gtin: args.id }, options);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new GraphQLError(error.message, {
-        extensions: {
-          code: 'GRAPHQL_VALIDATION_FAILED',
-        },
-      });
-    }
-    throw new Error('Unexpected Error occured when query the product');
+    response = await Product.findOne({ gtin: args.id });
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : 'Unexpected Error occured when query the product';
+    throw new GraphQLError(message, {
+      extensions: {
+        code: 'GRAPHQL_VALIDATION_FAILED',
+      },
+    });
   }
 
-  return response.docs[0];
+  return response;
 };
 
 export default {

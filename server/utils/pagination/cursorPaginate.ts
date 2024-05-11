@@ -1,13 +1,5 @@
+import { isString } from 'lodash';
 import { Document, PaginateResult } from 'mongoose';
-
-export enum OrderDirection {
-  ASC = 'asc',
-  DESC = 'desc',
-}
-
-interface IOrder {
-  orderDirection: OrderDirection;
-}
 
 interface IOption {
   before?: string;
@@ -34,12 +26,12 @@ const cursorPaginate = (
     : null;
 
   if (parsedCursor) {
-    edges = edges.filter((node) =>
+    edges = edges.filter((edge) =>
       after
-        ? parseCursor(node.cursor) > parsedCursor[0]
+        ? parseCursor(edge.cursor) > parsedCursor[0]
         : before
-        ? parseCursor(node.cursor) < parsedCursor[0]
-        : node
+        ? parseCursor(edge.cursor) < parsedCursor[0]
+        : edge
     );
   }
 
@@ -59,8 +51,8 @@ const cursorPaginate = (
   return paginatedResult;
 };
 
-export const createCursor = (param: string, orderOption: Array<IOrder>) => {
-  const payload = orderOption.map(() => param);
+export const createCursor = (param: string) => {
+  const payload = [param];
 
   return serializeCursor(payload);
 };
@@ -71,6 +63,10 @@ const serializeCursor = (param: object) =>
 const parseCursor = (cursor: string) => {
   if (!cursor) {
     return null;
+  }
+
+  if (!isString(cursor)) {
+    throw new Error('before or after must be a string');
   }
 
   try {

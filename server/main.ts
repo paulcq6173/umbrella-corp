@@ -73,7 +73,7 @@ app.get('/health', (_req: Request, res: Response) => {
   res.status(200).send('Okay!');
 });
 
-// Solves issue that after refresh page not found
+// Solves problem occured after refresh
 app.get('/*', (_req, res) => {
   res.sendFile(
     path.join(__dirname, '../dist/index.html'),

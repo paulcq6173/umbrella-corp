@@ -1,8 +1,8 @@
 import User from '@server/models/userModel';
 import cursorPaginate, {
-  OrderDirection,
   createCursor,
 } from '@server/utils/pagination/cursorPaginate';
+import limitValidator from '@server/utils/pagination/limitValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDefs = `
@@ -19,40 +19,39 @@ const resolver = async (
   args: { first: number; after: string }
 ) => {
   const { first, after } = args;
-
-  if (first < 0) throw new Error('first must be positive');
-
+  const limit: number = limitValidator(first);
   let response;
 
   const options = {
-    limit: first || 10,
-    sort: { createdAt: 'desc' },
+    limit,
+  };
+
+  const orderOptions = {
+    after,
   };
 
   try {
     const result = await User.paginate({}, options);
+    const rawDocs = [...result.docs].sort(
+      (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+    );
 
-    const docArray = result.docs.map((node) => ({
+    const docArray = rawDocs.map((node) => ({
       node,
-      cursor: createCursor(node.createdAt, [
-        { orderDirection: OrderDirection.DESC },
-      ]),
+      cursor: createCursor(node.createdAt),
     }));
-
-    const orderOptions = {
-      after,
-    };
 
     response = cursorPaginate(result, docArray, orderOptions);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new GraphQLError(error.message, {
-        extensions: {
-          code: 'GRAPHQL_VALIDATION_FAILED',
-        },
-      });
-    }
-    throw new Error('Unexpected Error occured when query all users');
+    const message =
+      error instanceof Error
+        ? error.message
+        : 'Unexpected Error occured when query all users';
+    throw new GraphQLError(message, {
+      extensions: {
+        code: 'GRAPHQL_VALIDATION_FAILED',
+      },
+    });
   }
 
   return response;

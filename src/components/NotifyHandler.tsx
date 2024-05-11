@@ -25,7 +25,7 @@ const NotifyHandler = () => {
 
   return (
     <div
-      className={`w-6/7 m-1 border-2 border-${color} bg-gray-400 text-sm sm:text-base text-${color}`}
+      className={`w-6/7 m-1 p-1 border-2 border-${color} bg-yellow-200 text-sm sm:text-base text-${color}`}
     >
       {message}
     </div>

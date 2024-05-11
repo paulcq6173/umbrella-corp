@@ -6,6 +6,10 @@ export const typeDefs = `
     fullName: String
     id: ID!
   }
+
+  type Token {
+    value: String!
+  }
 `;
 
 export default { typeDefs };
