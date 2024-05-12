@@ -12,7 +12,7 @@ This is an ongoing project.
 
 ．Using graphql-codegen libraries for building GraphQL client.
 
-．Cursor-based Pagination for better performance.
+．Pagination for better performance.
 
 ## Services
 

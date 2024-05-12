@@ -19,7 +19,7 @@ const Footer = () => {
           © 1980-2024 <strong>Umbrella Corp & Capcom</strong>. All Rights
           Reserved
         </div>
-        <div className="w-full flex justify-center gap-2 bg-slate-800">
+        <div className="w-full flex flex-col sm:flex-row justify-center gap-2 bg-slate-800">
           <div>
             <h3 className="italic font-medium text-red-600">Subsidiaries</h3>
             <ul className="style-inside">

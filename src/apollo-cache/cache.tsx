@@ -1,5 +1,6 @@
 import { INotify } from '@/@types/types';
 import { InMemoryCache, ReactiveVar, makeVar } from '@apollo/client';
+import { relayStylePagination } from '@apollo/client/utilities';
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -18,6 +19,8 @@ export const cache = new InMemoryCache({
             return tokenVar();
           },
         },
+        // Relay-style Pagination in Apollo Client.
+        allProjects: relayStylePagination(),
       },
     },
   },

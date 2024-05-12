@@ -13,8 +13,7 @@ const Archives = () => {
     : 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/462cd37d-8e10-4376-8ff5-4f13dd9b7741/dc2hri0-c72e8de2-25cb-4e52-93b0-52bf02f887d6.png/v1/fit/w_720,h_387,q_70,strp/bio_observatory_by_lenstu82_dc2hri0-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9Mzg3IiwicGF0aCI6IlwvZlwvNDYyY2QzN2QtOGUxMC00Mzc2LThmZjUtNGYxM2RkOWI3NzQxXC9kYzJocmkwLWM3MmU4ZGUyLTI1Y2ItNGU1Mi05M2IwLTUyYmYwMmY4ODdkNi5wbmciLCJ3aWR0aCI6Ijw9NzIwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.-oALd-p4eAW1_egKi0TFCeAV580nPyNqspg8U8Gul0Q';
 
   const limit: number = mobileMode ? 4 : 6;
-  const totalLength =
-    Math.floor(Docs.length / limit) + (Docs.length % limit > 0 ? 1 : 0);
+  const totalLength = Math.ceil(Docs.length / limit);
   const hasPrev: boolean = currentPage > 1;
   const hasNext: boolean = currentPage < totalLength;
   const turnToPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
