@@ -1,4 +1,4 @@
-import SecurityLayout from '@/components/SecurityLayout';
+import SecureDataUI from '@/components/SecureDataCenter';
 import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ const SecurityPage = () => {
             </Link>
             .
           </span>
-          <SecurityLayout />
+          <SecureDataUI />
         </div>
       </div>
     </div>

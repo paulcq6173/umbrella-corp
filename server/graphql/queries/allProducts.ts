@@ -1,9 +1,7 @@
 import Product from '@server/models/productModel';
-import cursorPaginate, {
-  createCursor,
-} from '@server/utils/pagination/cursorPaginate';
-import limitValidator from '@server/utils/pagination/limitValidator';
-import normalizeOrderBy from '@server/utils/pagination/normalizeOrderBy';
+import cursorPaginate from '@server/utils/pagination/cursorPaginate';
+import validateCursor from '@server/utils/pagination/validateCursor';
+import validateLimit from '@server/utils/pagination/validateLimit';
 import { GraphQLError } from 'graphql';
 
 const typeDefs = `
@@ -27,7 +25,7 @@ const typeDefs = `
 `;
 
 interface IProductsArgs {
-  first?: number;
+  first: number;
   after?: string;
   orderDirection?: string;
   orderBy?: string;
@@ -37,11 +35,15 @@ interface IProductsArgs {
 // TODO:averageRatings field, enum AllProductsOrderBy not applied
 const resolver = async (_root: string, args: IProductsArgs) => {
   const { first, after, orderDirection, orderBy, searchKeyword } = args;
-  const limit: number = limitValidator(first);
-  const direction: string = normalizeOrderBy(orderDirection);
+  const afterCursor: Array<string> = validateCursor(after) || [];
 
-  let response;
-  let sort;
+  const orderColumnByOrderBy: { [key: string]: string } = {
+    CreatedAt: 'createdAt',
+    AverageRatings: 'averageRatings',
+  };
+  const column: string =
+    (orderBy && orderColumnByOrderBy[orderBy]) || 'createdAt';
+  let result;
   let query = {};
 
   if (searchKeyword) {
@@ -53,48 +55,27 @@ const resolver = async (_root: string, args: IProductsArgs) => {
     };
   }
 
-  if (orderBy === 'createdAt') {
-    sort = { column: 'createdAt', direction };
-  } else {
-    sort = { column: 'ratings', direction };
+  if (after) {
+    switch (column) {
+      case 'createdAt':
+        query = { ...query, createdAt: { $gt: afterCursor[0] } };
+        break;
+      case 'averageRatings':
+        query = { ...query, ratings: { $gt: afterCursor[0] } };
+        break;
+    }
   }
 
-  const options = { limit };
-  const orderOptions = {
-    after: after || '',
+  const options = {
+    limit: validateLimit(first),
+  };
+
+  const queryOptions = {
+    sort: { column, direction: orderDirection },
   };
 
   try {
-    const result = await Product.paginate(query, options);
-    const rawDocs = [...result.docs];
-
-    switch (sort.column) {
-      case 'createdAt':
-        if (direction === 'desc') {
-          rawDocs.sort(
-            (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-          );
-        } else {
-          rawDocs.sort(
-            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
-          );
-        }
-        break;
-      case 'averageRatings':
-        if (direction === 'desc') {
-          rawDocs.sort((a, b) => b.ratings - a.ratings);
-        } else {
-          rawDocs.sort((a, b) => a.ratings - b.ratings);
-        }
-        break;
-    }
-
-    const docArray = rawDocs.map((node) => ({
-      node,
-      cursor: createCursor(node.createdAt),
-    }));
-
-    response = cursorPaginate(result, docArray, orderOptions);
+    result = await Product.paginate(query, options);
   } catch (error) {
     const message =
       error instanceof Error
@@ -107,7 +88,7 @@ const resolver = async (_root: string, args: IProductsArgs) => {
     });
   }
 
-  return response;
+  return cursorPaginate(result, queryOptions);
 };
 
 export default {

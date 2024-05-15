@@ -57,6 +57,7 @@ export const ALL_PROJECTS = graphql(`
   query allProjectsQuery(
     $first: Int
     $after: String
+    $offset: Int
     $orderDirection: OrderDirection
     $orderBy: AllProjectsOrderBy
     $searchKeyword: String
@@ -64,6 +65,7 @@ export const ALL_PROJECTS = graphql(`
     allProjects(
       first: $first
       after: $after
+      offset: $offset
       orderDirection: $orderDirection
       orderBy: $orderBy
       searchKeyword: $searchKeyword

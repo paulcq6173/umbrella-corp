@@ -1,11 +1,11 @@
 import { AllProjectsOrderBy } from '@/gql/graphql';
 import Project from '@server/models/projectModel';
-import cursorPaginate, {
-  createCursor,
-} from '@server/utils/pagination/cursorPaginate';
-import limitValidator from '@server/utils/pagination/limitValidator';
-import normalizeOrderBy from '@server/utils/pagination/normalizeOrderBy';
+import cursorPaginate from '@server/utils/pagination/cursorPaginate';
+import validateCursor from '@server/utils/pagination/validateCursor';
+import validateLimit from '@server/utils/pagination/validateLimit';
 import { GraphQLError } from 'graphql';
+import { isNumber } from 'lodash';
+import { PaginateOptions } from 'mongoose';
 
 const typeDef = `
   enum AllProjectsOrderBy {
@@ -19,28 +19,46 @@ const typeDef = `
     allProjects(
       first: Int
       after: String
-      orderDirection: OrderDirection
+      offset: Int
       orderBy: AllProjectsOrderBy
+      orderDirection: OrderDirection
       searchKeyword: String
     ): ProjectConnection
   }
 `;
 
 interface IProjectArgs {
-  first?: number;
+  first: number;
   after?: string;
-  orderDirection?: string;
+  offset?: number;
   orderBy?: string;
+  orderDirection?: string;
   searchKeyword?: string;
 }
 
 const resolver = async (_root: string, args: IProjectArgs) => {
-  const { first, after, orderDirection, searchKeyword } = args;
-  const limit: number = limitValidator(first);
-  const direction: string = normalizeOrderBy(orderDirection);
-  let response;
-  const sort = { column: AllProjectsOrderBy.CreatedAt, direction };
+  const { first, after, offset, orderBy, orderDirection, searchKeyword } = args;
+  const limit: number = validateLimit(first);
+  const afterCursor: Array<string> = validateCursor(after) || [];
+  const skip: number = isNumber(offset) ? offset : 0;
+
+  // Only createdAt field for now
+  const orderColumnByOrderBy: { [key: string]: AllProjectsOrderBy } = {
+    createdAt: AllProjectsOrderBy.CreatedAt,
+  };
+  const column: AllProjectsOrderBy =
+    (orderBy && orderColumnByOrderBy[orderBy]) || AllProjectsOrderBy.CreatedAt;
+
+  const options: PaginateOptions = {
+    limit,
+    offset: skip,
+    populate: 'models',
+  };
+  const queryOptions = {
+    sort: { column, direction: orderDirection },
+  };
   let query = {};
+  let result;
 
   if (searchKeyword) {
     query = {
@@ -51,42 +69,12 @@ const resolver = async (_root: string, args: IProjectArgs) => {
     };
   }
 
-  // The sort method provided by mongoose plugin
-  // didn't work as I expected, so just remove it.
-  const options = {
-    limit,
-    populate: 'models',
-  };
-
-  // other options for cursorPaginate handling.
-  const orderOptions = {
-    after: after || '',
-  };
+  if (after) {
+    query = { ...query, createdAt: { $gt: afterCursor[0] } };
+  }
 
   try {
-    const result = await Project.paginate(query, options);
-    const rawDocs = [...result.docs];
-
-    switch (sort.column) {
-      case 'createdAt':
-        if (direction === 'desc') {
-          rawDocs.sort(
-            (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-          );
-        } else {
-          rawDocs.sort(
-            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
-          );
-        }
-        break;
-    }
-
-    const docsWithCursor = rawDocs.map((node) => ({
-      node,
-      cursor: createCursor(node.createdAt),
-    }));
-
-    response = cursorPaginate(result, docsWithCursor, orderOptions);
+    result = await Project.paginate(query, options);
   } catch (error: unknown) {
     const message =
       error instanceof Error
@@ -99,7 +87,7 @@ const resolver = async (_root: string, args: IProjectArgs) => {
     });
   }
 
-  return response;
+  return cursorPaginate(result, queryOptions);
 };
 
 export default { typeDef, resolver };

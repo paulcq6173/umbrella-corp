@@ -1,43 +1,54 @@
+import {
+  PaginatedProductDoc,
+  PaginatedProjectDoc,
+  PaginatedUserDoc,
+} from '@/@types/types';
 import { isString } from 'lodash';
-import { Document, PaginateResult } from 'mongoose';
+import { PaginateResult } from 'mongoose';
+import normalizeOrderBy from './normalizeOrderBy';
 
-interface IOption {
-  before?: string;
-  after?: string;
+interface ISortProps {
+  column: string;
+  direction?: string;
+}
+
+interface IConditionProps {
+  sort: ISortProps;
+}
+
+interface IPaginatedResultProps {
+  totalCount: number;
+  pageInfo: {
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+    startCursor: string | null;
+    endCursor: string | null;
+  };
+  edges: Array<{
+    node: PaginatedUserDoc | PaginatedProductDoc | PaginatedProjectDoc;
+    cursor: string;
+  }>;
 }
 
 const cursorPaginate = (
-  result: PaginateResult<Document<unknown>>,
-  docArray: Array<{
-    node: Document<unknown>;
-    cursor: string;
-  }>,
-  orderOptions: IOption
+  result: PaginateResult<
+    PaginatedUserDoc | PaginatedProductDoc | PaginatedProjectDoc
+  >,
+  conditions: IConditionProps
 ) => {
-  let paginatedResult = {};
-  let edges = docArray;
   const { totalDocs, hasPrevPage, hasNextPage } = result;
-  const { before, after } = orderOptions;
+  const { sort } = conditions;
+  const copiedDocs = [...result.docs];
+  const sortedDocs = sortDocuments(copiedDocs, sort);
 
-  const parsedCursor = after
-    ? parseCursor(after)
-    : before
-    ? parseCursor(before)
-    : null;
+  const edges = sortedDocs.map((node) => ({
+    node,
+    cursor: createCursor(node.createdAt),
+  }));
 
-  if (parsedCursor) {
-    edges = edges.filter((edge) =>
-      after
-        ? parseCursor(edge.cursor) > parsedCursor[0]
-        : before
-        ? parseCursor(edge.cursor) < parsedCursor[0]
-        : edge
-    );
-  }
+  const length: number = edges.length;
 
-  const length = edges.length;
-
-  paginatedResult = {
+  const paginatedResult: IPaginatedResultProps = {
     totalCount: totalDocs,
     pageInfo: {
       hasPreviousPage: hasPrevPage,
@@ -51,6 +62,46 @@ const cursorPaginate = (
   return paginatedResult;
 };
 
+const sortDocuments = (
+  docs: Array<PaginatedUserDoc | PaginatedProductDoc | PaginatedProjectDoc>,
+  sort: ISortProps
+) => {
+  const { column } = sort;
+  const direction: string = normalizeOrderBy(sort.direction);
+
+  switch (column) {
+    case 'createdAt':
+      if (direction === 'asc') {
+        docs.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
+      } else {
+        // default ordered by descending
+        docs.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+      }
+      break;
+    case 'averageRatings':
+      if (!isProductDocs(docs)) {
+        throw new Error('Incorrect sort field found: averageRatings');
+      }
+      if (direction === 'asc') {
+        docs.sort((a, b) => a.ratings - b.ratings);
+      } else {
+        // default ordered by descending
+        docs.sort((a, b) => b.ratings - a.ratings);
+      }
+      break;
+    default: // Debug message
+      console.log('Unknown sort field found. Please check again.');
+      break;
+  }
+
+  return docs;
+};
+
+const isProductDocs = (
+  docs: Array<unknown>
+): docs is Array<PaginatedProductDoc> =>
+  (docs as Array<PaginatedProductDoc>)[0].gtin !== undefined;
+
 export const createCursor = (param: string) => {
   const payload = [param];
 
@@ -60,7 +111,7 @@ export const createCursor = (param: string) => {
 const serializeCursor = (param: object) =>
   Buffer.from(JSON.stringify(param)).toString('base64');
 
-const parseCursor = (cursor: string) => {
+export const parseCursor = (cursor: string): void | string[] | null => {
   if (!cursor) {
     return null;
   }

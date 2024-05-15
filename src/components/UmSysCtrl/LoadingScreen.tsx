@@ -1,6 +1,6 @@
 const LoadingScreen = () => {
   return (
-    <div className="bg-black w-screen h-48">
+    <div className="bg-black w-screen h-svh">
       <div className="w-full flex justify-center">
         <img
           className="relative pt-10"

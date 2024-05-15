@@ -1,8 +1,7 @@
 import User from '@server/models/userModel';
-import cursorPaginate, {
-  createCursor,
-} from '@server/utils/pagination/cursorPaginate';
-import limitValidator from '@server/utils/pagination/limitValidator';
+import cursorPaginate from '@server/utils/pagination/cursorPaginate';
+import validateCursor from '@server/utils/pagination/validateCursor';
+import validateLimit from '@server/utils/pagination/validateLimit';
 import { GraphQLError } from 'graphql';
 
 const typeDefs = `
@@ -19,29 +18,24 @@ const resolver = async (
   args: { first: number; after: string }
 ) => {
   const { first, after } = args;
-  const limit: number = limitValidator(first);
-  let response;
+  const afterCursor: Array<string> = validateCursor(after) || [];
+  let query = {};
+  let result;
 
   const options = {
-    limit,
+    limit: validateLimit(first),
   };
 
-  const orderOptions = {
-    after,
+  if (after) {
+    query = { createdAt: { $gt: afterCursor[0] } };
+  }
+
+  const queryOptions = {
+    sort: { column: 'createdAt', direction: 'desc' },
   };
 
   try {
-    const result = await User.paginate({}, options);
-    const rawDocs = [...result.docs].sort(
-      (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-    );
-
-    const docArray = rawDocs.map((node) => ({
-      node,
-      cursor: createCursor(node.createdAt),
-    }));
-
-    response = cursorPaginate(result, docArray, orderOptions);
+    result = await User.paginate(query, options);
   } catch (error: unknown) {
     const message =
       error instanceof Error
@@ -54,7 +48,7 @@ const resolver = async (
     });
   }
 
-  return response;
+  return cursorPaginate(result, queryOptions);
 };
 
 export default {

@@ -1,6 +1,6 @@
 import { IProjectDocument } from '@/@types/types';
-import mongoose, { Schema, model } from 'mongoose';
-import paginate from 'mongoose-paginate-v2';
+import { PaginateModel, Schema, model } from 'mongoose';
+import paginatePlugin from 'mongoose-paginate-v2';
 import uniqueValidator from 'mongoose-unique-validator';
 
 const projectSchema = new Schema<IProjectDocument>({
@@ -34,10 +34,11 @@ projectSchema.set('toJSON', {
   },
 });
 
-projectSchema.plugin(paginate);
+projectSchema.plugin(paginatePlugin);
 projectSchema.plugin(uniqueValidator);
 
-export default model<
-  IProjectDocument,
-  mongoose.PaginateModel<IProjectDocument>
->('Projects', projectSchema, 'projects');
+export default model<IProjectDocument, PaginateModel<IProjectDocument>>(
+  'Projects',
+  projectSchema,
+  'projects'
+);

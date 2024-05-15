@@ -1,9 +1,9 @@
-import { OrderDirection } from '@/gql/graphql';
-import mongoose, { Types } from 'mongoose';
+import { AllProjectsOrderBy, OrderDirection } from '@/gql/graphql';
+import { Document, PaginateOptions, Types } from 'mongoose';
 
 // Define omit type for unions
 // Refer to https://github.com/microsoft/TypeScript/issues/42680
-type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+export type UnionOmit<T, K extends string | number | symbol> = T extends unknown
   ? Omit<T, K>
   : never;
 
@@ -54,13 +54,15 @@ export interface IProject extends IBaseDate {
   models: Array<BOWProps>;
 }
 
-export enum AllProjectsOrderBy {
-  CreatedAt = 'createdAt',
+export interface IBaseProjectQuery {
+  searchKeyword?: string;
+  orderBy: AllProjectsOrderBy;
+  orderDirection: OrderDirection;
 }
 
-export interface ISortProps {
-  column: AllProjectsOrderBy;
-  direction: OrderDirection;
+export interface IProjectQueryVars extends IBaseProjectQuery {
+  first: number;
+  offset?: number;
 }
 
 //======================= Back-end =======================
@@ -128,12 +130,21 @@ export interface IBOWSchema extends IBaseDate {
   imgUrl: string;
 }
 
-// For Mongoose pagination v2 plugin
-export interface IUserDocument extends mongoose.Document, IUserSchema {}
-export interface IProjectDocument extends mongoose.Document, IProjectSchema {}
-export interface IEmployeeDocument extends mongoose.Document, IEmployeeSchema {}
-export interface IProductDocument extends mongoose.Document, IProductSchema {}
-export interface IBowModelDocument extends mongoose.Document, IBOWSchema {}
+// For Mongoose pagination plugin
+export interface IUserDocument extends Document, IUserSchema {}
+export interface IProjectDocument extends Document, IProjectSchema {}
+export interface IEmployeeDocument extends Document, IEmployeeSchema {}
+export interface IProductDocument extends Document, IProductSchema {}
+export interface IBowModelDocument extends Document, IBOWSchema {}
+// For @server/utils/pagination/cursorPaginate.ts
+type PaginatedDoc<T> = Document<unknown, PaginateOptions, T> & {
+  _id: Types.ObjectId;
+};
+export type PaginatedUserDoc = PaginatedDoc<IUserDocument> & IUserDocument;
+export type PaginatedProductDoc = PaginatedDoc<IProductDocument> &
+  IProductDocument;
+export type PaginatedProjectDoc = PaginatedDoc<IProjectDocument> &
+  IProjectDocument;
 
 export interface IUpdateUserInfo
   extends UnionOmit<IUserSchema, 'username' | 'passwordHash'> {

@@ -1,28 +1,20 @@
-import { AllProjectsOrderBy, ISortProps } from '@/@types/types';
+import { IProjectQueryVars } from '@/@types/types';
 import { SendNotify } from '@/components/NotifyHandler';
 import ProjectCard from '@/components/ProjectCard';
-import SearchInterface from '@/components/SecurityLayout/SearchInterface';
 import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import { FragmentType, getFragmentData } from '@/gql';
-import { AllProjectsQueryDocument, OrderDirection } from '@/gql/graphql';
+import { AllProjectsQueryDocument } from '@/gql/graphql';
 import { PageInfoFragment } from '@/graphql/fragments';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-const SecurityLayout = () => {
-  const [keyword, setKeyword] = useState<string>('');
-  const [sortOption, setSortOption] = useState<ISortProps>({
-    column: AllProjectsOrderBy.CreatedAt,
-    direction: OrderDirection.Desc,
-  });
-
-  const { column, direction } = sortOption;
-  const variables = {
-    first: 4,
-    searchKeyword: keyword,
-    orderBy: column,
-    orderDirection: direction,
-  };
+const FileList = ({
+  variables,
+  setVariables,
+}: {
+  variables: IProjectQueryVars;
+  setVariables: Dispatch<SetStateAction<IProjectQueryVars>>;
+}) => {
   const { data, loading, fetchMore } = useQuery(AllProjectsQueryDocument, {
     variables,
     fetchPolicy: 'cache-and-network',
@@ -33,15 +25,15 @@ const SecurityLayout = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-48">
+      <div className="w-full h-svh">
         <div className="animate-pulse flex flex-col">
           <div className="flex-1 space-y-6 py-1 text-center italic">
-            Welcome to Umbrella Secure Data Center
+            Umbrella Secure Data Center
           </div>
-          <div className="space-y-6">
-            <div className="h-4">Validation succeed …</div>
-            <div className="h-4">Request accepted …</div>
-            <div className="h-4">searching …</div>
+          <div className="p-1 space-y-6">
+            <div className="h-4">.........</div>
+            <div className="h-4">searching now...</div>
+            <div className="h-4">It may take some time...</div>
           </div>
         </div>
       </div>
@@ -50,8 +42,8 @@ const SecurityLayout = () => {
 
   if (!data || !data.allProjects) {
     return (
-      <div className="w-full h-1/2">
-        <p className="text-black">No data found</p>
+      <div className="w-full h-screen space-y-6">
+        <p className="text-black text-center">No data found</p>
       </div>
     );
   }
@@ -79,18 +71,23 @@ const SecurityLayout = () => {
         e.currentTarget.clientHeight;
 
       if (endReached) {
+        const currentLength = projectNodes.length;
+        setVariables({
+          ...variables,
+          first: 5 + currentLength,
+        });
+
         fetchMore({
           variables: {
             after: pageInfo.endCursor,
-            ...variables,
           },
         });
       }
     };
 
     return (
-      <div onScroll={onLoadMore} className="overflow-y-auto">
-        <ul className="pl-2 style-inside italic text-sm sm:text-base text-red-800">
+      <div onScroll={onLoadMore} className="h-2/3 md:h-56 overflow-y-scroll">
+        <ul className="pl-2 pr-2 style-inside italic text-sm sm:text-base text-red-800">
           {projectNodes.length > 0 ? (
             projectNodes.map(
               (node, i) =>
@@ -105,20 +102,13 @@ const SecurityLayout = () => {
   };
 
   return (
-    <div>
-      <SearchInterface
-        keyword={keyword}
-        setKeyword={setKeyword}
-        sortOption={sortOption}
-        setSortOption={setSortOption}
-      />
+    <div className="pl-2 pr-2">
       <div className="w-full mt-4 m-auto border-2 rounded-sm border-transparent dark:bg-black">
         <UmbrellaLabel title="File List" />
       </div>
-
       <PaginatedContent />
     </div>
   );
 };
 
-export default SecurityLayout;
+export default FileList;
