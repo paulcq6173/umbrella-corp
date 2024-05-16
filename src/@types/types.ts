@@ -115,6 +115,7 @@ export interface IProjectSchema extends IBaseDate {
   projectName: string;
   description: string;
   models: Array<Types.ObjectId>;
+  creationDate: string;
 }
 
 export interface IBOWSchema extends IBaseDate {
@@ -122,7 +123,9 @@ export interface IBOWSchema extends IBaseDate {
   version: string;
   based?: Array<string | null> | null;
   height?: string | null;
+  length?: string | null;
   mass?: string | null;
+  creationDate?: string | null;
   createdVia?: Array<string | null> | null;
   characteristics: string;
   experimentalType: boolean;

@@ -16,6 +16,7 @@ const Materials = () => {
           <li>https://www.deviantart.com/deadward0</li>
           <li>https://www.deviantart.com/singularitycomplex</li>
           <li>https://www.deviantart.com/snowlina</li>
+          <li>https://www.deviantart.com/predator-assassin</li>
         </ul>
       </div>
     </div>

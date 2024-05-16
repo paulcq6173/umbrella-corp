@@ -4,7 +4,9 @@ const typeDefs = `
     version: String!
     based: [String]
     height: String
+    length: String
     mass: String
+    creationDate: String
     createdVia: [String]
     characteristics: String!
     experimentalType: Boolean!

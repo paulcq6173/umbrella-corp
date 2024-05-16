@@ -2,7 +2,7 @@ import { IBowModelDocument } from '@/@types/types';
 import mongoose, { Schema, model } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 
-const bowModelSchema = new Schema({
+const bowModelSchema = new Schema<IBowModelDocument>({
   codeName: {
     type: String,
     required: [true, 'code name field is blank'],
@@ -11,7 +11,12 @@ const bowModelSchema = new Schema({
   version: { type: String, required: [true, 'version field is blank'] },
   based: [String],
   height: String,
+  length: String,
   mass: String,
+  creationDate: {
+    type: String,
+    minlength: [4, 'Must be at least 4, got {VALUE}'],
+  },
   createdVia: [String],
   characteristics: {
     type: String,

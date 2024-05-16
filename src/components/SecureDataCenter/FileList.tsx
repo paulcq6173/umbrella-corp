@@ -86,7 +86,7 @@ const FileList = ({
     };
 
     return (
-      <div onScroll={onLoadMore} className="h-2/3 md:h-56 overflow-y-scroll">
+      <div onScroll={onLoadMore} className="max-h-48 md:h-56 overflow-y-scroll">
         <ul className="pl-2 pr-2 style-inside italic text-sm sm:text-base text-red-800">
           {projectNodes.length > 0 ? (
             projectNodes.map(

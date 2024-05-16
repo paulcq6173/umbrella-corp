@@ -1,12 +1,14 @@
 import { ICreateProject, IProjectSchema, IServerContext } from '@/@types/types';
 import Project from '@server/models/projectModel';
 import AuthencationValidator from '@server/utils/AuthencationValidator';
+import DateValidator from '@server/utils/DateValidator';
 import { GraphQLError } from 'graphql';
 
 const typeDef = `
   createProject(
     projectName: String!
     description: String!
+    creationDate: String!
   ): BOWProject
 `;
 
@@ -17,7 +19,7 @@ const resolver = async (
 ) => {
   if (!AuthencationValidator(currentUser)) return;
 
-  const { projectName } = args;
+  const { projectName, creationDate } = args;
 
   const foundProject: IProjectSchema | null = await Project.findOne({
     projectName,
@@ -30,6 +32,10 @@ const resolver = async (
         code: 'BAD_USER_INPUT',
       },
     });
+  }
+
+  if (creationDate && !DateValidator(creationDate)) {
+    return;
   }
 
   let newProject;

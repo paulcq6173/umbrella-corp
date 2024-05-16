@@ -13,6 +13,10 @@ const projectSchema = new Schema<IProjectDocument>({
     required: [true, 'Project description field must not be blank'],
   },
   models: [{ type: Schema.Types.ObjectId, ref: 'BOWs' }],
+  creationDate: {
+    type: String,
+    minlength: [4, 'Must be at least 4, got {VALUE}'],
+  },
   createdAt: {
     type: String,
     required: [true, 'createdAt is null'],
