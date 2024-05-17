@@ -10,12 +10,13 @@ const ProjectModel = ({ model }: { model: BOWProps }) => {
     imgUrl,
     based,
     height,
+    length,
     mass,
     createdVia,
   } = model;
 
   return (
-    <div className="w-screen md:w-[800px] h-svh bg-slate-400 text-sm sm:text-base dark:bg-black dark:text-white">
+    <div className="w-screen md:w-[800px] h-fit bg-slate-400 text-sm sm:text-base dark:bg-black dark:text-white">
       <div className="w-11/12 sm:6/7 m-auto border-2 rounded-sm bg-stone-200 dark:bg-slate-600">
         <div className="grid grid-cols-1 sm:grid-cols-2 p-1">
           <div className="col-span-1">
@@ -40,10 +41,11 @@ const ProjectModel = ({ model }: { model: BOWProps }) => {
               </ul>
             )}
             {height && <p>height: {height}</p>}
+            {length && <p>length: {length}</p>}
             {mass && <p>mass: {mass}</p>}
             {createdVia && createdVia.length > 0 && (
               <ul>
-                createdVia:{' '}
+                created via:{' '}
                 {createdVia.map((e, index) => (
                   <li key={index}>{e}</li>
                 ))}

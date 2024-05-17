@@ -13,7 +13,7 @@ const TopNaviButton = ({
   if (window.screen.width < 811) {
     return (
       <button
-        className="w-14 bg-slate-400 dark:bg-black hover:bg-red-600"
+        className="w-14 bg-slate-400 border-2 rounded-sm border-black dark:bg-black hover:bg-red-600"
         value={labelValue}
       >
         <Link

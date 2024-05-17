@@ -49,7 +49,7 @@ const Archive = () => {
   } = content[currentPage - 1];
 
   return (
-    <div className="w-screen bg-black flex flex-col space-y-2 font-serif">
+    <div className="w-screen min-h-screen bg-black flex flex-col space-y-2 font-serif">
       <div className="w-11/12 md:w-5/6 h-fit m-auto opacity-90 italic text-sm sm:text-base text-stone-400 dark:text-white">
         <div className="pt-1">
           <p>Date: {date}</p>

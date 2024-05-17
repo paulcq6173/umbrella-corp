@@ -27,7 +27,7 @@ const ProductPage = () => {
   const item = getFragmentData(ProductFragment, ProductProps);
 
   return (
-    <div className="w-screen bg-gray-200 dark:bg-slate-400">
+    <div className="w-screen min-h-svh bg-gray-200 dark:bg-slate-400">
       <div className="p-1 w-8">
         <Link
           className=" border-2 border-transparent rounded-sm text-white bg-red-600 hover:bg-red-400"

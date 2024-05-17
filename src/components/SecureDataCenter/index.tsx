@@ -11,7 +11,7 @@ const SecureDataUI = () => {
   const { orderDirection } = variables;
 
   return (
-    <div className="w-full pl-2">
+    <div className="w-full p-2">
       <h3 className="text-sm sm:text-base font-medium">Sort Option</h3>
       <div className="flex space-x-2 text-red-600">
         <div>
@@ -56,7 +56,7 @@ const SecureDataUI = () => {
       <div>
         <input
           className="peer w-5/6 border-2 rounded-sm border-red-800 focus:border-red-600 outline-none"
-          placeholder="type name / title"
+          placeholder="name / title"
           type="search"
           id="keyword"
           defaultValue={variables.searchKeyword}

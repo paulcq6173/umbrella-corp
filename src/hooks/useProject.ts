@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 
 const useProject = () => {
   const [variables, setVariables] = useState<IProjectQueryVars>({
-    first: 5,
+    first: 10,
     offset: 0,
     searchKeyword: '',
     orderBy: AllProjectsOrderBy.CreatedAt,
