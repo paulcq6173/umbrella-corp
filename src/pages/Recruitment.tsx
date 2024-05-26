@@ -1,14 +1,14 @@
 const RecruitmentPage = () => {
   return (
     <div className="w-screen text-center bg-white bg-gray-200 dark:bg-black">
-      <div className="dark:text-white">
+      <div className="h-svh dark:text-white">
         <h3>Recruitment Info</h3>
         <img
           className="object-fit"
           src="https://wallpapercave.com/wp/wp5390182.jpg"
         />
         <a
-          className="no-underline text-red-600"
+          className="h-36 no-underline text-red-600"
           href="http://umbrellacorporation.net"
           target="_blank"
           rel="noopener noreferrer"

@@ -1,6 +1,6 @@
 const Materials = () => {
   return (
-    <div className="w-screen italic bg-slate-200 text-black dark:text-white dark:bg-black text-sm sm:text-base">
+    <div className="w-screen h-screen italic bg-slate-200 text-black dark:text-white dark:bg-black text-sm sm:text-base">
       <div className="w-11/12 m-auto h-fit no-underline">
         <h2 className="text-red-600">Source Materials:</h2>
         <ul className="list-inside">

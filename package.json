@@ -15,6 +15,10 @@
     "cypress:open": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress open",
     "test:e2e": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress run"
   },
+  "browserslist": [
+    "defaults and fully supports es6-module",
+    "maintained node versions"
+  ],
   "dependencies": {
     "@apollo/client": "^3.10.1",
     "@apollo/server": "^4.10.4",
@@ -51,11 +55,11 @@
     "@types/lodash.throttle": "^4.1.9",
     "@types/mongoose-unique-validator": "^1.0.9",
     "@types/node": "^20.12.7",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "cypress": "^13.8.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
@@ -69,8 +73,8 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.22.3",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.9",
     "vite-plugin-svgr": "^4.2.0"
   }
 }

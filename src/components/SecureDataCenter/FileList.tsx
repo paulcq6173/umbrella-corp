@@ -25,7 +25,7 @@ const FileList = ({
 
   if (loading) {
     return (
-      <div className="w-full h-60">
+      <div className="w-full h-6/7">
         <div className="animate-pulse flex flex-col">
           <div className="flex-1 space-y-6 py-1 text-center italic">
             Umbrella Secure Data Center
@@ -86,7 +86,7 @@ const FileList = ({
     };
 
     return (
-      <div onScroll={onLoadMore} className="h-60 overflow-y-scroll">
+      <div onScroll={onLoadMore} className="h-6/7 overflow-y-scroll">
         <ul className="pl-2 pr-2 style-inside italic text-sm sm:text-base text-red-800">
           {projectNodes.length > 0 ? (
             projectNodes.map(
