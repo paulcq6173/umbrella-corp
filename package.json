@@ -15,10 +15,6 @@
     "cypress:open": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress open",
     "test:e2e": "CYPRESS_CACHE_FOLDER=~/cypress_cache cypress run"
   },
-  "browserslist": [
-    "defaults and fully supports es6-module",
-    "maintained node versions"
-  ],
   "dependencies": {
     "@apollo/client": "^3.10.1",
     "@apollo/server": "^4.10.4",
