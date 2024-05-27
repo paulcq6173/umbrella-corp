@@ -21,11 +21,21 @@ const Footer = () => {
         </div>
         <div className="w-full flex flex-col sm:flex-row justify-center gap-2 bg-slate-800">
           <div>
-            <h3 className="italic font-medium text-red-600">Subsidiaries</h3>
+            <h3 className="italic font-medium text-red-600">Branches</h3>
             <ul className="style-inside">
               <li className="text-zinc-300">Umbrella U.S.A.</li>
               <li className="text-zinc-300">Umbrella Europe</li>
               <li className="text-zinc-300">Umbrella Japan</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="italic font-medium text-red-600">Subsidiaries</h3>
+            <ul className="style-inside">
+              <li className="text-zinc-300">Umbrella Pharmaceuticals</li>
+              <li className="text-zinc-300">Paraguas Line Company</li>
+              <li className="text-zinc-300">Umbrella Industries</li>
+              <li className="text-zinc-300">Umbrella Medical Equipment</li>
+              <li className="text-zinc-300">Parasol</li>
             </ul>
           </div>
           <div>

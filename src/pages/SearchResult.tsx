@@ -29,7 +29,7 @@ const SearchResultPage = () => {
         <h1 className="text-red-600 font-bold text-center">
           All Popular Products
         </h1>
-        <div className="bg-gray-400 dark:bg-gray-600 pt-1 pb-1 flex flex-col gap-1">
+        <div className="w-3/4 m-auto bg-gray-400 dark:bg-gray-600 pt-1 pb-1 flex flex-col gap-1">
           {productEdges &&
             productEdges.map(
               (e, i) =>

@@ -18,7 +18,7 @@ const InputBar = ({ label, t, inputRef, placeholder }: InoutProps) => {
       </div>
       <div className="md:pl-2">
         <input
-          className="w-40 sm:w-48 border-2 border-red-600 rounded-sm outline-none drop-shadow-sm"
+          className="w-5/6 sm:w-56 border-2 border-red-600 rounded-sm outline-none drop-shadow-sm"
           type="username"
           placeholder={placeHodervalue}
           defaultValue={inputRef.current}

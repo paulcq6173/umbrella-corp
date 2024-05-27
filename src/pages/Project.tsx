@@ -2,6 +2,7 @@ import BOW from '@/components/BOW';
 import { SendNotify } from '@/components/NotifyHandler';
 import LoadingScreen from '@/components/UmSysCtrl/LoadingScreen';
 import NoDataFound from '@/components/UmSysCtrl/NoDataFound';
+import ROPLSInfo from '@/components/UmSysCtrl/ROPLSInfo';
 import { FragmentType, getFragmentData } from '@/gql';
 import { FindProjectQueryDocument } from '@/gql/graphql';
 import { ProjectFragment } from '@/graphql/fragments';
@@ -31,7 +32,7 @@ const ProjectPage = () => {
   const project = getFragmentData(ProjectFragment, projectProps);
 
   return (
-    <div className="w-screen space-y-1.5 bg-slate-400 dark:bg-black dark:text-white">
+    <div className="w-screen space-y-1.5 bg-slate-400 dark:bg-emerald-900 dark:text-white">
       <div className="w-full p-1 flex justify-center">
         <Link
           className="w-14 text-center border-2 rounded-sm border-black bg-red-800 hover:bg-red-600"
@@ -48,6 +49,7 @@ const ProjectPage = () => {
           (e, i) => e && <BOW key={`bio-weapon-${i}`} model={e} />
         )}
       </div>
+      <ROPLSInfo />
     </div>
   );
 };

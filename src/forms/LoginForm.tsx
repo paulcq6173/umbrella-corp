@@ -43,11 +43,35 @@ const LoginForm = () => {
     });
   };
 
+  const LoginButton = () => {
+    if (result.loading) {
+      return (
+        <div className="flex justify-center text-white">
+          {t('processing')}...
+          <svg className="bg-red-600 animate-spin h-5 w-5 border-2 border-red-800 rounded-3xl bg-gradient-to-r from-red-400" />
+        </div>
+      );
+    }
+
+    return (
+      <div className="text-center">
+        <button className="w-20 mt-2 mb-2 p-0.5 border-2 rounded-sm border-black bg-red-800 text-white hover:bg-red-600">
+          {t('SignIn')}
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className="p-1 flex flex-col gap-1.5 sm:gap-2 z-0">
       <TopMessageBoard />
-
-      <div className="w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-5/6 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
+      <div className="hidden md:inline-block absolute w-1/2 bottom-0 left-28">
+        <img
+          className="object-contain border-2 border-transparent rounded-sm opacity-80"
+          src="/images/laboratory_by_eiskalterengel18_df0owik.png"
+        />
+      </div>
+      <div className="relative w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-5/6 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
         <h2 className="italic text-sm sm:text-base text-red-600 text-center bg-black">
           {t(`System.CTRL`, { ns: 'umbrellaSecurity' })}
         </h2>
@@ -58,11 +82,7 @@ const LoginForm = () => {
         >
           <InputBar label="User" t={t} inputRef={useUsername} />
           <InputBar label="Password" t={t} inputRef={usePassword} />
-          <div className="text-center">
-            <button className="w-20 mt-2 mb-2 p-0.5 border-2 rounded-sm border-black bg-red-800 text-white hover:bg-red-600">
-              {t('SignIn')}
-            </button>
-          </div>
+          <LoginButton />
         </form>
         <NotifyHandler />
         <p className="p-1 text-white">

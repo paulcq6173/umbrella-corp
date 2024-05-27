@@ -16,11 +16,11 @@ const ProjectModel = ({ model }: { model: BOWProps }) => {
   } = model;
 
   return (
-    <div className="w-screen md:w-[800px] h-fit bg-slate-400 text-sm sm:text-base dark:bg-black dark:text-white">
+    <div className="w-screen md:w-[800px] h-fit bg-slate-400 text-sm sm:text-base dark:bg-emerald-900 dark:text-white">
       <div className="w-11/12 sm:6/7 m-auto border-2 rounded-sm bg-stone-200 dark:bg-slate-600">
         <div className="grid grid-cols-1 sm:grid-cols-2 p-1">
           <div className="col-span-1">
-            <h1 className="text-red-600">Project / Experimental Code:</h1>
+            <h1 className="text-red-600">Project / Experiment Code:</h1>
             <h2 className="dark:text-amber-400">{codeName}</h2>
             <img
               className="border-2 border-transparent rounded-md p-0.5"

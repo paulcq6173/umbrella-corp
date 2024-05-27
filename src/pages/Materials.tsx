@@ -9,7 +9,7 @@ const Materials = () => {
           <li>https://www.amazon.com/</li>
           <li>https://wallpapercave.com</li>
         </ul>
-        <label className="text-red-600">Illustrators:</label>
+        <label className="text-red-600">Creator:</label>
         <ul className="list-inside">
           <li>https://www.deviantart.com/lenstu82</li>
           <li>https://www.deviantart.com/mantisverde</li>
@@ -17,6 +17,8 @@ const Materials = () => {
           <li>https://www.deviantart.com/singularitycomplex</li>
           <li>https://www.deviantart.com/snowlina</li>
           <li>https://www.deviantart.com/predator-assassin</li>
+          <li>https://www.deviantart.com/eiskalterengel18</li>
+          <li>https://www.deviantart.com/mrmuffinsman</li>
         </ul>
       </div>
     </div>
