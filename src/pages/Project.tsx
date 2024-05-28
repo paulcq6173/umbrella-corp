@@ -42,7 +42,7 @@ const ProjectPage = () => {
         </Link>
       </div>
       <div className="pt-2 text-center">
-        <h3 className="italic text-red-600 font-medium">Results List below</h3>
+        <h3 className="italic text-red-600 font-medium">Results list below</h3>
       </div>
       <div className="w-full space-y-1.5 flex flex-col items-center">
         {project?.models?.map(

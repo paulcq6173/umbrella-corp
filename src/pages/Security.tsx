@@ -12,7 +12,7 @@ const SecurityPage = () => {
     <div className="w-screen h-fit p-1 flex flex-col gap-1.5 sm:gap-2 bg-gradient-to-b from-green-900 to-lime-900">
       <TopMessageBoard />
       <RoplsScreen />
-      <div className="relative w-11/12 gap-1 sm:w-4/5 md:w-6/7 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600 opacity-85">
+      <div className="relative w-11/12 h-86 gap-1 sm:w-4/5 md:w-6/7 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600 opacity-85">
         <div className="flex flex-col justify-center m-2 border-2 border-transparent rounded-sm border-slate-400 bg-gray-200">
           <h2 className="italic text-red-600 text-center bg-black">
             {t('System.CTRL', { ns: 'umbrellaSecurity' })}

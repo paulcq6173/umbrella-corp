@@ -1,6 +1,6 @@
 const HomeHeader = () => {
   return (
-    <div className="w-full md:h-48 md:grid md:grid-cols-4">
+    <div className="w-full md:h-48 md:grid md:grid-cols-3">
       <div className="hidden w-48 p-2.5 md:inline-block md:col-span-1">
         <img
           className="object-contain"
@@ -17,7 +17,7 @@ const HomeHeader = () => {
           products, health foods, the transportation industry and tourism.
         </p>
       </div>
-      <div className="md:h-48 md:col-span-2 p-0.5 overflow-y-scroll">
+      <div className="md:h-48 md:col-span-1 p-0.5 overflow-y-scroll">
         <div className="md:flex">
           <img
             className="object-contain border-2 border-transparent rounded-sm md:block"

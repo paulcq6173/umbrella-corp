@@ -25,15 +25,17 @@ const FileList = ({
 
   if (loading) {
     return (
-      <div className="w-full h-96 md:h-48">
+      <div className="w-full h-86">
+        <div className="w-full mt-4 m-auto border-2 rounded-sm border-transparent dark:bg-black">
+          <UmbrellaLabel title="File List" />
+        </div>
         <div className="animate-pulse flex flex-col">
-          <div className="flex-1 space-y-6 py-1 text-center italic">
-            Umbrella Secure Data Center
-          </div>
-          <div className="p-1 space-y-6">
-            <div className="h-4">.........</div>
-            <div className="h-4">searching now...</div>
-            <div className="h-4">It may take some time...</div>
+          <div className="p-1 pt-6">
+            <div className="h-6 bg-gray-300"></div>
+            <div className="h-6">.........</div>
+            <div className="h-6">request accepted...</div>
+            <div className="h-6">processing...</div>
+            <div className="h-6">It may take some time...</div>
           </div>
         </div>
       </div>
@@ -42,7 +44,7 @@ const FileList = ({
 
   if (!data || !data.allProjects) {
     return (
-      <div className="w-full h-screen space-y-6">
+      <div className="w-full h-86 space-y-6">
         <p className="text-black text-center">No data found</p>
       </div>
     );
@@ -86,7 +88,7 @@ const FileList = ({
     };
 
     return (
-      <div onScroll={onLoadMore} className="h-96 md:h-60 overflow-y-scroll">
+      <div onScroll={onLoadMore} className="h-72 overflow-y-scroll">
         <ul className="pl-2 pr-2 style-inside italic text-base sm:text-lg text-red-800">
           {projectNodes.length > 0 ? (
             projectNodes.map(
@@ -102,7 +104,7 @@ const FileList = ({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-80">
       <div className="w-full mt-4 m-auto border-2 rounded-sm border-transparent dark:bg-black">
         <UmbrellaLabel title="File List" />
       </div>

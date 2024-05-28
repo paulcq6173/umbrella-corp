@@ -16,8 +16,8 @@ const ProjectModel = ({ model }: { model: BOWProps }) => {
   } = model;
 
   return (
-    <div className="w-screen md:w-[800px] h-fit bg-slate-400 text-sm sm:text-base dark:bg-emerald-900 dark:text-white">
-      <div className="w-11/12 sm:6/7 m-auto border-2 rounded-sm bg-stone-200 dark:bg-slate-600">
+    <div className="w-screen md:w-[800px] h-fit dark:text-white">
+      <div className="w-11/12 sm:6/7 m-auto border-2 rounded-sm bg-stone-200 dark:bg-stone-400">
         <div className="grid grid-cols-1 sm:grid-cols-2 p-1">
           <div className="col-span-1">
             <h1 className="text-red-600">Project / Experiment Code:</h1>

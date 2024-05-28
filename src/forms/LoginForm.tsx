@@ -1,6 +1,5 @@
 import { tokenVar } from '@/apollo-cache/cache';
 import NotifyHandler, { SendNotify } from '@/components/NotifyHandler';
-import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
 import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import InputBar from '@/forms/InputBar';
 import { LOGIN } from '@/graphql/mutations';
@@ -63,16 +62,9 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="p-1 flex flex-col gap-1.5 sm:gap-2 z-0">
-      <TopMessageBoard />
-      <div className="hidden md:inline-block absolute w-1/2 bottom-0 left-28">
-        <img
-          className="object-contain border-2 border-transparent rounded-sm opacity-80"
-          src="/images/laboratory_by_eiskalterengel18_df0owik.png"
-        />
-      </div>
-      <div className="relative w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-5/6 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
-        <h2 className="italic text-sm sm:text-base text-red-600 text-center bg-black">
+    <div className="relative p-1 flex flex-col gap-1.5 sm:gap-2 z-0">
+      <div className="w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-5/6 lg:w-[1000px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600 opacity-90">
+        <h2 className="italic text-base lg:text-lg text-red-600 text-center bg-black">
           {t(`System.CTRL`, { ns: 'umbrellaSecurity' })}
         </h2>
         <UmbrellaLabel title="SignIn" />

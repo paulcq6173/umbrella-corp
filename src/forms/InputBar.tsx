@@ -12,7 +12,7 @@ const InputBar = ({ label, t, inputRef, placeholder }: InoutProps) => {
   const placeHodervalue: string = placeholder || '';
 
   return (
-    <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3">
+    <div className="ml-1 grid-cols-1 sm:grid sm:grid-cols-3 sm:text-lg">
       <div className="italic sm:col-span-1 md:text-right">
         <label>{t(label, { ns: 'umbrellaSecurity' })}</label>
       </div>

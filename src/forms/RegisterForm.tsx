@@ -1,5 +1,4 @@
 import NotifyHandler from '@/components/NotifyHandler';
-import TopMessageBoard from '@/components/UmSysCtrl/TopMessageBoard';
 import UmbrellaLabel from '@/components/UmSysCtrl/UmbrellaLabel';
 import InputBar from '@/forms/InputBar';
 import { useRef } from 'react';
@@ -17,11 +16,9 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="p-1 flex flex-col gap-1.5 z-0">
-      <TopMessageBoard />
-
-      <div className="w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-6/7 lg:w-[800px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600">
-        <h2 className="italic text-sm sm:text-base text-red-600 text-center bg-black">
+    <div className="relative p-1 flex flex-col gap-1.5 z-0">
+      <div className="w-11/12 h-80 sm:w-4/5 sm:h-72 md:w-6/7 lg:w-[1000px] m-auto border-2 rounded-sm border-slate-800 bg-gradient-to-b from-zinc-300 to-zinc-600 opacity-90">
+        <h2 className="italic text-base lg:text-lg text-red-600 text-center bg-black">
           {t(`System.CTRL`, { ns: 'umbrellaSecurity' })}
         </h2>
         <UmbrellaLabel title="SignUp" />
